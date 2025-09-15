@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8BE4A84F-F69F-4495-A3BA-5C1BF8B0BFF2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Server</RootNamespace>
+    <AssemblyName>RunUO</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <StartupObject>Server.Core</StartupObject>
+    <ApplicationIcon>runuo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Distribution\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Distribution\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Distribution\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;x64</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Distribution\Release\</OutputPath>
+    <DefineConstants>TRACE;x64</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AggressorInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Attributes.cs" />
+    <Compile Include="BaseVendor.cs" />
+    <Compile Include="Body.cs" />
+    <Compile Include="ClientVersion.cs" />
+    <Compile Include="Commands.cs" />
+    <Compile Include="ContextMenus\ContextMenu.cs" />
+    <Compile Include="ContextMenus\ContextMenuEntry.cs" />
+    <Compile Include="ContextMenus\OpenBackpackEntry.cs" />
+    <Compile Include="ContextMenus\PaperdollEntry.cs" />
+    <Compile Include="Diagnostics\BaseProfile.cs" />
+    <Compile Include="Diagnostics\GumpProfile.cs" />
+    <Compile Include="Diagnostics\PacketProfile.cs" />
+    <Compile Include="Diagnostics\TargetProfile.cs" />
+    <Compile Include="Diagnostics\TimerProfile.cs" />
+    <Compile Include="Effects.cs" />
+    <Compile Include="EventLog.cs" />
+    <Compile Include="EventSink.cs" />
+    <Compile Include="ExpansionInfo.cs" />
+    <Compile Include="Geometry.cs" />
+    <Compile Include="Guild.cs" />
+    <Compile Include="Gumps\Gump.cs" />
+    <Compile Include="Gumps\GumpAlphaRegion.cs" />
+    <Compile Include="Gumps\GumpBackground.cs" />
+    <Compile Include="Gumps\GumpButton.cs" />
+    <Compile Include="Gumps\GumpCheck.cs" />
+    <Compile Include="Gumps\GumpEntry.cs" />
+    <Compile Include="Gumps\GumpGroup.cs" />
+    <Compile Include="Gumps\GumpHtml.cs" />
+    <Compile Include="Gumps\GumpHtmlLocalized.cs" />
+    <Compile Include="Gumps\GumpImage.cs" />
+    <Compile Include="Gumps\GumpImageTileButton.cs" />
+    <Compile Include="Gumps\GumpImageTiled.cs" />
+    <Compile Include="Gumps\GumpItem.cs" />
+    <Compile Include="Gumps\GumpItemProperty.cs" />
+    <Compile Include="Gumps\GumpLabel.cs" />
+    <Compile Include="Gumps\GumpLabelCropped.cs" />
+    <Compile Include="Gumps\GumpPage.cs" />
+    <Compile Include="Gumps\GumpRadio.cs" />
+    <Compile Include="Gumps\GumpTextEntry.cs" />
+    <Compile Include="Gumps\GumpTextEntryLimited.cs" />
+    <Compile Include="Gumps\GumpTooltip.cs" />
+    <Compile Include="Gumps\RelayInfo.cs" />
+    <Compile Include="HuePicker.cs" />
+    <Compile Include="IAccount.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="Insensitive.cs" />
+    <Compile Include="Interfaces.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemBounds.cs" />
+    <Compile Include="Items\BaseMulti.cs" />
+    <Compile Include="Items\Container.cs" />
+    <Compile Include="Items\Containers.cs" />
+    <Compile Include="Items\SecureTradeContainer.cs" />
+    <Compile Include="Items\VirtualHair.cs" />
+    <Compile Include="KeywordList.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Menus\IMenu.cs" />
+    <Compile Include="Menus\ItemListMenu.cs" />
+    <Compile Include="Menus\QuestionMenu.cs" />
+    <Compile Include="Mobile.cs" />
+    <Compile Include="Movement.cs" />
+    <Compile Include="MultiData.cs" />
+    <Compile Include="NativeReader.cs" />
+    <Compile Include="Network\BufferPool.cs" />
+    <Compile Include="Network\ByteQueue.cs" />
+    <Compile Include="Network\Compression.cs" />
+    <Compile Include="Network\EncodedPacketHandler.cs" />
+    <Compile Include="Network\EncodedReader.cs" />
+    <Compile Include="Network\Listener.cs" />
+    <Compile Include="Network\MessagePump.cs" />
+    <Compile Include="Network\NetState.cs" />
+    <Compile Include="Network\PacketHandler.cs" />
+    <Compile Include="Network\PacketHandlers.cs" />
+    <Compile Include="Network\PacketReader.cs" />
+    <Compile Include="Network\Packets.cs" />
+    <Compile Include="Network\PacketWriter.cs" />
+    <Compile Include="Network\SendQueue.cs" />
+    <Compile Include="Notoriety.cs" />
+    <Compile Include="ObjectPropertyList.cs" />
+    <Compile Include="Party.cs" />
+    <Compile Include="Persistence\BinaryMemoryWriter.cs" />
+    <Compile Include="Persistence\DualSaveStrategy.cs" />
+    <Compile Include="Persistence\DynamicSaveStrategy.cs" />
+    <Compile Include="Persistence\FileOperations.cs" />
+    <Compile Include="Persistence\FileQueue.cs" />
+    <Compile Include="Persistence\ParallelSaveStrategy.cs" />
+    <Compile Include="Persistence\QueuedMemoryWriter.cs" />
+    <Compile Include="Persistence\SaveMetrics.cs" />
+    <Compile Include="Persistence\SaveStrategy.cs" />
+    <Compile Include="Persistence\SequentialFileWriter.cs" />
+    <Compile Include="Persistence\StandardSaveStrategy.cs" />
+    <Compile Include="Point3DList.cs" />
+    <Compile Include="Poison.cs" />
+    <Compile Include="Prompt.cs" />
+    <Compile Include="QuestArrow.cs" />
+    <Compile Include="Race.cs" />
+    <Compile Include="Region.cs" />
+    <Compile Include="ScriptCompiler.cs" />
+    <Compile Include="Sector.cs" />
+    <Compile Include="SecureTrade.cs" />
+    <Compile Include="Serial.cs" />
+    <Compile Include="Serialization.cs" />
+    <Compile Include="Skills.cs" />
+    <Compile Include="Targeting\LandTarget.cs" />
+    <Compile Include="Targeting\MultiTarget.cs" />
+    <Compile Include="Targeting\StaticTarget.cs" />
+    <Compile Include="Targeting\Target.cs" />
+    <Compile Include="Targeting\TargetCancelType.cs" />
+    <Compile Include="Targeting\TargetFlags.cs" />
+    <Compile Include="TileData.cs" />
+    <Compile Include="TileList.cs" />
+    <Compile Include="TileMatrix.cs" />
+    <Compile Include="TileMatrixPatch.cs" />
+    <Compile Include="Timer.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="VirtueInfo.cs" />
+    <Compile Include="World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="runuo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Data\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Scripts\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\zlib32.dll" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\zlib64.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <DataFiles Include="..\Data\**\*" />
+      <ScriptFiles Include="..\Scripts\**\*" />
+      <ZlibFiles Include="..\zlib*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DataFiles)" DestinationFiles="@(DataFiles->'$(OutputPath)Data\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ScriptFiles)" DestinationFiles="@(ScriptFiles->'$(OutputPath)Scripts\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ZlibFiles)" DestinationFolder="$(OutputPath)" />
+    <MakeDir Directories="$(OutputPath)Saves" Condition="!Exists('$(OutputPath)Saves')" />
+    <MakeDir Directories="$(OutputPath)Logs" Condition="!Exists('$(OutputPath)Logs')" />
+    <MakeDir Directories="$(OutputPath)Scripts\Output" Condition="!Exists('$(OutputPath)Scripts\Output')" />
+  </Target>
+</Project>

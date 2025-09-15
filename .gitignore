@@ -1,0 +1,97 @@
+# Build Outputs
+Distribution/
+Scripts/Output/
+*.dll
+*.pdb
+*.exe
+*.exe.config
+*.cache
+
+# Visual Studio
+.vs/
+bin/
+obj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj.filters
+*.vcxproj.user
+
+# Rider
+.idea/
+
+# Compiled Scripts
+Scripts.CS.dll
+Scripts.CS.hash
+Scripts.VB.dll
+Scripts.VB.hash
+
+# Logs
+Logs/
+*.log
+*.log.*
+
+# Save Files (may contain sensitive data)
+Saves/
+Backups/
+
+# User Configuration
+*.cfg.user
+Data/*.cfg.user
+
+# AI/Claude Files - Never commit AI agent artifacts
+CLAUDE.md
+.cursor/
+.cursorrules
+.github/copilot-instructions.md
+claude-*
+*claude*
+*.ai
+.ai/
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Package files
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Database files that may contain sensitive data
+*.mdb
+*.ldb
+*.db3
+*.sqlite
+
+# Configuration files that may contain sensitive info
+appsettings.*.json
+connectionstrings.config
+
+# Runtime generated files
+*.pid
+*.seed
+*.lock
