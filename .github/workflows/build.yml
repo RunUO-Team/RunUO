@@ -8,28 +8,32 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     strategy:
       matrix:
         configuration: [Debug, Release]
-        platform: [AnyCPU, x64]
 
     steps:
     - uses: actions/checkout@v4
 
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
     - name: Setup .NET Framework
-      uses: microsoft/setup-msbuild@v1.3
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '6.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore RunUO.sln
+    - name: Restore NuGet packages
+      run: nuget restore RunUO.sln
 
-    - name: Build
-      run: msbuild RunUO.sln /p:Configuration=${{ matrix.configuration }} /p:Platform="${{ matrix.platform }}"
+    - name: Build solution
+      run: msbuild RunUO.sln /p:Configuration=${{ matrix.configuration }} /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.8
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: RunUO-${{ matrix.configuration }}-${{ matrix.platform }}
+        name: RunUO-${{ matrix.configuration }}
         path: Distribution/${{ matrix.configuration }}/
         retention-days: 30
