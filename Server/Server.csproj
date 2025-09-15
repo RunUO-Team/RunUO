@@ -191,10 +191,6 @@
     <Content Include="runuo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Data\**" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\Scripts\**" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\zlib32.dll" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\zlib64.dll" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
