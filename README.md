@@ -1,6 +1,7 @@
 # RunUO Server
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Build Status](https://github.com/RunUO-Team/RunUO/workflows/Build/badge.svg)](https://github.com/RunUO-Team/RunUO/actions)
 
 ## Overview
 
