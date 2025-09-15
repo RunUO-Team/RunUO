@@ -1,7 +1,6 @@
 # RunUO Server
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-[![Build Status](https://github.com/RunUO-Team/RunUO/workflows/Build/badge.svg)](https://github.com/RunUO-Team/RunUO/actions)
 
 ## Overview
 
@@ -22,8 +21,8 @@ This repository contains the official RunUO server codebase, maintained by the o
 
 ### Prerequisites
 
-- .NET Framework 4.8 or .NET 5.0+
-- Visual Studio 2019+ (recommended) or any C# IDE
+- .NET Framework 4.8 SDK
+- Visual Studio 2019+ (recommended) or any C# IDE that supports .NET Framework
 - Ultima Online client files
 
 ### Building
@@ -34,21 +33,48 @@ This repository contains the official RunUO server codebase, maintained by the o
    cd RunUO
    ```
 
-2. Open `RunUO.sln` in Visual Studio or build from command line:
+2. Build using Visual Studio:
+   - Open `RunUO.sln` in Visual Studio
+   - Build Solution (Ctrl+Shift+B)
+   - Output will be in `Distribution/Debug/` or `Distribution/Release/`
+
+3. Or build from command line:
    ```bash
-   dotnet build
+   dotnet build RunUO.sln --configuration Release
    ```
 
-3. Run the server:
+4. Run the server:
    ```bash
-   dotnet run --project Server
+   # Navigate to the build output directory
+   cd Distribution/Release
+
+   # Run the server
+   ./RunUO.exe
    ```
+
+### Directory Structure
+
+After building, the `Distribution/` folder contains everything needed to run the server:
+
+```
+Distribution/
+├── Debug/ (or Release/)
+│   ├── RunUO.exe          # Server executable
+│   ├── RunUO.pdb          # Debug symbols
+│   ├── Data/              # Configuration files
+│   ├── Scripts/           # Game content scripts
+│   ├── Saves/             # World save files (created at runtime)
+│   ├── Logs/              # Server log files (created at runtime)
+│   ├── zlib32.dll         # Compression library (32-bit)
+│   └── zlib64.dll         # Compression library (64-bit)
+```
 
 ### Configuration
 
 1. Configure your UO client path in the server settings
 2. Modify configuration files in the `Data/` directory as needed
 3. Add custom scripts to the `Scripts/` directory
+4. The server will automatically compile scripts at startup
 
 ## Documentation
 
