@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup .NET Framework
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore NuGet packages
+      run: nuget restore RunUO.sln
+
+    - name: Build Release
+      run: msbuild RunUO.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.8
+
+    - name: Create release archive
+      run: |
+        cd Distribution/Release
+        Compress-Archive -Path * -DestinationPath ../../RunUO-${{ github.ref_name }}.zip
+
+    - name: Create release archive with debug symbols
+      run: |
+        cd Distribution/Release
+        Compress-Archive -Path * -DestinationPath ../../RunUO-${{ github.ref_name }}-Debug.zip
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: RunUO Server ${{ github.ref_name }}
+        body: |
+          # RunUO Server ${{ github.ref_name }} - Official Re-release
+
+          This is the official re-release of RunUO Server, originally created by **Ryan McAdams** and **Zac Torkelson (Krrios)** in 2002.
+
+          ## 🚀 Features
+          - Complete UO protocol implementation with multi-era client support
+          - Dynamic C# script compilation system for hot-swappable game content
+          - Comprehensive game systems including crafting, PvP, quests, and more
+          - Cross-platform compatibility with .NET Framework and Mono
+          - Extensible architecture for custom content development
+
+          ## 📦 Installation
+          1. Download the release archive
+          2. Extract to your desired directory
+          3. Ensure you have .NET Framework 4.8 installed
+          4. Run `RunUO.exe`
+
+          ## 🔧 Requirements
+          - .NET Framework 4.8 (or .NET 6.0+ with compatibility)
+          - Ultima Online client files (not included)
+          - Windows, Linux, or macOS (with Mono)
+
+          Built from commit: ${{ github.sha }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./RunUO-${{ github.ref_name }}.zip
+        asset_name: RunUO-${{ github.ref_name }}.zip
+        asset_content_type: application/zip
+
+    - name: Upload Debug Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./RunUO-${{ github.ref_name }}-Debug.zip
+        asset_name: RunUO-${{ github.ref_name }}-Debug.zip
+        asset_content_type: application/zip
