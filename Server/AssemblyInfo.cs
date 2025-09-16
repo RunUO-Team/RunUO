@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 //
 [assembly: AssemblyTitle("RunUO Server Core")]	//Having just RunUO there is reundant, ie, RunUO.exe with the word 'RunUO' under it
-[assembly: AssemblyDescription("UO Server Software")]
+[assembly: AssemblyDescription("UO Server Software - .NET 8 Cross-Platform")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The RunUO Team")]
 [assembly: AssemblyProduct("")]
@@ -47,7 +47,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("2.3.0.0")]
+[assembly: AssemblyVersion("3.0.0.0")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
