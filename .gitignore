@@ -42,6 +42,7 @@ Data/*.cfg.user
 
 # AI/Claude Files - Never commit AI agent artifacts
 CLAUDE.md
+changes.md
 .cursor/
 .cursorrules
 .github/copilot-instructions.md
