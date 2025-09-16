@@ -657,7 +657,7 @@ namespace Server
 				m_Order = 0;
 			}
 
-			public int CompareTo( UOPEntry? other )
+			public int CompareTo( UOPEntry other )
 			{
 				return m_Order.CompareTo( other.m_Order );
 			}
@@ -671,7 +671,7 @@ namespace Server
 			{
 			}
 
-			public int Compare( UOPEntry? x, UOPEntry? y )
+			public int Compare( UOPEntry x, UOPEntry y )
 			{
 				return x.m_Offset.CompareTo( y.m_Offset );
 			}

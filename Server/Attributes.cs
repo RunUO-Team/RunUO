@@ -75,7 +75,7 @@ namespace Server
 
 	public class CallPriorityComparer : IComparer<MethodInfo>
 	{
-		public int Compare( MethodInfo? x, MethodInfo? y )
+		public int Compare( MethodInfo x, MethodInfo y )
 		{
 			if ( x == null && y == null )
 				return 0;

@@ -370,7 +370,7 @@ namespace Server.Engines.ConPVP
 			writer.WriteEncodedInt( (int) m_Losses );
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			return ((LadderEntry)obj).m_Experience - m_Experience;
 		}

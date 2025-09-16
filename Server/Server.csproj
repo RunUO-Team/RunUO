@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0-windows;net8.0</TargetFrameworks>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Server</RootNamespace>
     <AssemblyName>RunUO</AssemblyName>
     <StartupObject>Server.Core</StartupObject>
@@ -12,11 +12,7 @@
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishAot>false</PublishAot>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
-    <UseWindowsForms>true</UseWindowsForms>
-    <UseWPF>false</UseWPF>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <OutputPath>..\Distribution\Debug\</OutputPath>
@@ -36,13 +32,9 @@
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <PackageReference Include="System.CodeDom" Version="8.0.0" />
     <PackageReference Include="System.Diagnostics.EventLog" Version="8.0.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
   </ItemGroup>

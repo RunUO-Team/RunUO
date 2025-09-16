@@ -714,7 +714,7 @@ namespace Server
 			}
 		}
 
-		public override void Write( string? str )
+		public override void Write( string str )
 		{
 			using( StreamWriter writer = new StreamWriter( new FileStream( m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read ) ) )
 			{
@@ -727,7 +727,7 @@ namespace Server
 			}
 		}
 
-		public override void WriteLine( string? line )
+		public override void WriteLine( string line )
 		{
 			using( StreamWriter writer = new StreamWriter( new FileStream( m_FileName, FileMode.Append, FileAccess.Write, FileShare.Read ) ) )
 			{
@@ -772,13 +772,13 @@ namespace Server
 				m_Streams[i].Write( ch );
 		}
 
-		public override void WriteLine( string? line )
+		public override void WriteLine( string line )
 		{
 			for( int i = 0; i < m_Streams.Count; i++ )
 				m_Streams[i].WriteLine( line );
 		}
 
-		public override void WriteLine( string? line, params object?[] args )
+		public override void WriteLine( string line, params object[] args )
 		{
 			WriteLine( String.Format( line, args ) );
 		}

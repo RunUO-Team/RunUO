@@ -1233,7 +1233,7 @@ namespace Server.Network {
 			return SupportsExpansion( info, true );
 		}
 
-		public int CompareTo( NetState? other ) {
+		public int CompareTo( NetState other ) {
 			if ( other == null )
 				return 1;
 

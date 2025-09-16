@@ -48,7 +48,7 @@ namespace Server
 				{
 					m_Types = new BodyType[0x1000];
 
-					string line;
+					string? line;
 
 					while ( (line = ip.ReadLine()) != null )
 					{
@@ -244,7 +244,7 @@ namespace Server
 			return m_BodyID;
 		}
 
-		public override bool Equals( object o )
+		public override bool Equals( object? o )
 		{
 			if ( o == null || !(o is Body) ) return false;
 

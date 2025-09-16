@@ -2554,7 +2554,7 @@ namespace Server.Engines.ConPVP
 			m_Players = players;
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			TournyParticipant p = (TournyParticipant)obj;
 

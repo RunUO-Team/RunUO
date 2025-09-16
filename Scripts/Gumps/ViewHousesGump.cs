@@ -34,7 +34,7 @@ namespace Server.Gumps
 		{
 			public static readonly IComparer<BaseHouse> Instance = new HouseComparer();
 
-			public int Compare( BaseHouse? x, BaseHouse? y )
+			public int Compare( BaseHouse x, BaseHouse y )
 			{
 				return x.BuiltOn.CompareTo( y.BuiltOn );
 			}

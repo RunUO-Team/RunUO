@@ -32,7 +32,7 @@ namespace Server
 				return m_Address.ToString();
 			}
 
-			public override bool Equals( object obj )
+			public override bool Equals( object? obj )
 			{
 				if( obj is IPAddress )
 				{
@@ -80,7 +80,7 @@ namespace Server
 				return String.Format( "{0}/{1}", m_CIDRPrefix, m_CIDRLength );
 			}
 
-			public override bool Equals( object obj )
+			public override bool Equals( object? obj )
 			{
 
 				if( obj is string )
@@ -142,7 +142,7 @@ namespace Server
 				return m_Entry.ToString();
 			}
 
-			public override bool Equals( object obj )
+			public override bool Equals( object? obj )
 			{
 				if( obj is string )
 					return obj.Equals( m_Entry );

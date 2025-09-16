@@ -50,7 +50,7 @@ namespace Server.Commands
 
 		private class MemberComparer : IComparer
 		{
-			public int Compare( object x, object y )
+			public int Compare( object? x, object? y )
 			{
 				if( x == y )
 					return 0;
@@ -145,7 +145,7 @@ namespace Server.Commands
 
 		private class TypeComparer : IComparer<TypeInfo>
 		{
-			public int Compare( TypeInfo x, TypeInfo y )
+			public int Compare( TypeInfo? x, TypeInfo? y )
 			{
 				if( x == null && y == null )
 					return 0;
@@ -1431,7 +1431,7 @@ namespace Server.Commands
 
 		private class SpeechEntrySorter : IComparer<SpeechEntry>
 		{
-			public int Compare( SpeechEntry x, SpeechEntry y )
+			public int Compare( SpeechEntry? x, SpeechEntry? y )
 			{
 				return x.Index.CompareTo( y.Index );
 			}
@@ -1514,7 +1514,7 @@ namespace Server.Commands
 
 		public class CommandEntrySorter : IComparer<DocCommandEntry>
 		{
-			public int Compare( DocCommandEntry a, DocCommandEntry b )
+			public int Compare( DocCommandEntry? a, DocCommandEntry? b )
 			{
 				int v = b.AccessLevel.CompareTo( a.AccessLevel );
 
@@ -2576,7 +2576,7 @@ namespace Server.Commands
 			m_Name = name;
 		}
 
-		public override bool Equals( object obj )
+		public override bool Equals( object? obj )
 		{
 			BodyEntry e = (BodyEntry)obj;
 
@@ -2591,7 +2591,7 @@ namespace Server.Commands
 
 	public class BodyEntrySorter : IComparer<BodyEntry>
 	{
-		public int Compare( BodyEntry a, BodyEntry b )
+		public int Compare( BodyEntry? a, BodyEntry? b )
 		{
 			int v = a.BodyType.CompareTo( b.BodyType );
 

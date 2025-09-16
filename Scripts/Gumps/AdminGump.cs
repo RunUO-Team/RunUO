@@ -1373,7 +1373,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( object? x, object? y )
+			public int Compare( object x, object y )
 			{
 				DictionaryEntry a = (DictionaryEntry)x;
 				DictionaryEntry b = (DictionaryEntry)y;
@@ -2972,7 +2972,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( object? x, object? y )
+			public int Compare( object x, object y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -3014,7 +3014,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( object? x, object? y )
+			public int Compare( object x, object y )
 			{
 				if ( x == null && y == null )
 					return 0;

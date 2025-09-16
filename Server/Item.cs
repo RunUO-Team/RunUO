@@ -564,7 +564,7 @@ namespace Server
 	{
 		public static readonly List<Item> EmptyItems = new List<Item>();
 
-		public int CompareTo( IEntity? other )
+		public int CompareTo( IEntity other )
 		{
 			if ( other == null )
 				return -1;
@@ -572,12 +572,12 @@ namespace Server
 			return m_Serial.CompareTo( other.Serial );
 		}
 
-		public int CompareTo( Item? other )
+		public int CompareTo( Item other )
 		{
 			return this.CompareTo( (IEntity) other );
 		}
 
-		public int CompareTo( object? other )
+		public int CompareTo( object other )
 		{
 			if ( other == null || other is IEntity )
 				return this.CompareTo( (IEntity) other );

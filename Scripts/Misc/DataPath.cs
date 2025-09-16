@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Microsoft.Win32;
 using Server;
 
 namespace Server.Misc
@@ -15,8 +14,22 @@ namespace Server.Misc
 		 */
 		private static string CustomPath = null;
 
+		/* Common default paths for cross-platform compatibility.
+		 * Add your UO data directory paths here.
+		 */
+		private static readonly string[] DefaultPaths = {
+			@"C:\Program Files\Ultima Online",
+			@"C:\Program Files (x86)\Ultima Online",
+			@"C:\UO",
+			@"/usr/local/share/uo",
+			@"/opt/uo",
+			@"./Data",
+			@"./UOData",
+			@"../UOData"
+		};
+
 		/* The following is a list of files which a required for proper execution:
-		 * 
+		 *
 		 * Multi.idx
 		 * Multi.mul
 		 * VerData.mul
@@ -33,74 +46,28 @@ namespace Server.Misc
 
 		public static void Configure()
 		{
-			string pathUO = GetPath( @"Origin Worlds Online\Ultima Online\1.0", "ExePath" );
-			string pathTD = GetPath( @"Origin Worlds Online\Ultima Online Third Dawn\1.0", "ExePath" ); //These refer to 2D & 3D, not the Third Dawn expansion
-			string pathKR = GetPath( @"Origin Worlds Online\Ultima Online\KR Legacy Beta", "ExePath" ); //After KR, This is the new registry key for the 2D client
-			string pathSA = GetPath( @"Electronic Arts\EA Games\Ultima Online Stygian Abyss Classic", "InstallDir" );
-			string pathHS = GetPath( @"Electronic Arts\EA Games\Ultima Online Classic", "InstallDir" );
+			if ( CustomPath != null )
+				Core.DataDirectories.Add( CustomPath );
 
-			if ( CustomPath != null ) 
-				Core.DataDirectories.Add( CustomPath ); 
-
-			if ( pathUO != null ) 
-				Core.DataDirectories.Add( pathUO ); 
-
-			if ( pathTD != null ) 
-				Core.DataDirectories.Add( pathTD );
-
-			if ( pathKR != null )
-				Core.DataDirectories.Add( pathKR );
-
-			if ( pathSA != null )
-				Core.DataDirectories.Add( pathSA );
-
-			if ( pathHS != null )
-				Core.DataDirectories.Add( pathHS );
+			// Try default paths for cross-platform compatibility
+			foreach ( string path in DefaultPaths )
+			{
+				if ( Directory.Exists( path ) )
+				{
+					Core.DataDirectories.Add( path );
+				}
+			}
 
 			if ( Core.DataDirectories.Count == 0 && !Core.Service )
 			{
 				Console.WriteLine( "Enter the Ultima Online directory:" );
 				Console.Write( "> " );
 
-				Core.DataDirectories.Add( Console.ReadLine() );
-			}
-		}
-
-		private static string GetPath( string subName, string keyName )
-		{
-			try
-			{
-				string keyString;
-
-				if( Core.Is64Bit )
-					keyString = @"SOFTWARE\Wow6432Node\{0}";
-				else
-					keyString = @"SOFTWARE\{0}";
-
-				using( RegistryKey key = Registry.LocalMachine.OpenSubKey( String.Format( keyString, subName ) ) )
+				string? input = Console.ReadLine();
+				if ( !string.IsNullOrEmpty( input ) )
 				{
-					if( key == null )
-						return null;
-
-					string v = key.GetValue( keyName ) as string;
-
-					if( String.IsNullOrEmpty( v ) )
-						return null;
-
-					if ( keyName == "InstallDir" )
-						v = v + @"\";
-
-					v = Path.GetDirectoryName( v );
-
-					if ( String.IsNullOrEmpty( v ) )
-						return null;
-
-					return v;
+					Core.DataDirectories.Add( input );
 				}
-			}
-			catch
-			{
-				return null;
 			}
 		}
 	}

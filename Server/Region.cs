@@ -485,7 +485,7 @@ namespace Server
 			return count;
 		}
 
-		int IComparable.CompareTo( object? obj )
+		int IComparable.CompareTo( object obj )
 		{
 			if ( obj == null )
 				return 1;

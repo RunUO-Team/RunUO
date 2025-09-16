@@ -102,7 +102,7 @@ namespace Server
 			return m_Serial.CompareTo( other.m_Serial );
 		}
 
-		public int CompareTo( object? other )
+		public int CompareTo( object other )
 		{
 			if ( other is Serial )
 				return this.CompareTo( (Serial) other );
@@ -112,7 +112,7 @@ namespace Server
 			throw new ArgumentException();
 		}
 
-		public override bool Equals( object? o )
+		public override bool Equals( object o )
 		{
 			if ( o == null || !(o is Serial) ) return false;
 

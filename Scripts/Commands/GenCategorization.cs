@@ -10,9 +10,9 @@ namespace Server.Commands
 {
 	public class Categorization
 	{
-		private static CategoryEntry m_RootItems, m_RootMobiles;
+		private static CategoryEntry? m_RootItems, m_RootMobiles;
 
-		public static CategoryEntry Items
+		public static CategoryEntry? Items
 		{
 			get
 			{
@@ -23,7 +23,7 @@ namespace Server.Commands
 			}
 		}
 
-		public static CategoryEntry Mobiles
+		public static CategoryEntry? Mobiles
 		{
 			get
 			{
@@ -247,7 +247,7 @@ namespace Server.Commands
 
 	public class CategorySorter : IComparer
 	{
-		public int Compare( object x, object y )
+		public int Compare( object? x, object? y )
 		{
 			string a = null, b = null;
 
@@ -276,11 +276,11 @@ namespace Server.Commands
 
 	public class CategoryTypeEntry
 	{
-		private Type m_Type;
-		private object m_Object;
+		private Type? m_Type;
+		private object? m_Object;
 
-		public Type Type{ get{ return m_Type; } }
-		public object Object{ get{ return m_Object; } }
+		public Type? Type{ get{ return m_Type; } }
+		public object? Object{ get{ return m_Object; } }
 
 		public CategoryTypeEntry( Type type )
 		{

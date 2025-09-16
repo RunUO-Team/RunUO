@@ -449,7 +449,7 @@ namespace Server
 		{
 			public static readonly ZComparer Default = new ZComparer();
 
-			public int Compare( Item? x, Item? y )
+			public int Compare( Item x, Item y )
 			{
 				return x.Z.CompareTo( y.Z );
 			}
@@ -2076,7 +2076,7 @@ namespace Server
 		}
 
 		private static Point3DList m_PathList = new Point3DList();
-		public int CompareTo( Map? other )
+		public int CompareTo( Map other )
 		{
 			if ( other == null )
 				return -1;
@@ -2084,7 +2084,7 @@ namespace Server
 			return m_MapID.CompareTo( other.m_MapID );
 		}
 
-		public int CompareTo( object? other )
+		public int CompareTo( object other )
 		{
 			if ( other == null || other is Map )
 				return this.CompareTo( other );

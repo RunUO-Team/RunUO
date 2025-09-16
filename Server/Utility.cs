@@ -28,7 +28,6 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Xml;
-using Microsoft.Win32;
 using Server.Network;
 
 namespace Server

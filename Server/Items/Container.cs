@@ -275,7 +275,7 @@ namespace Server.Items
 				m_Grouper = grouper;
 			}
 
-			public int Compare( object? x, object? y )
+			public int Compare( object x, object y )
 			{
 				Item a = (Item)x;
 				Item b = (Item)y;
