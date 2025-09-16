@@ -35,7 +35,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: RunUO-${{ matrix.os }}-${{ matrix.configuration }}
-        path: Distribution/${{ matrix.configuration }}/net8.0/
+        path: Distribution/${{ matrix.configuration }}/
         retention-days: 30
 
     - name: Upload build artifacts (Linux)
@@ -43,5 +43,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: RunUO-${{ matrix.os }}-${{ matrix.configuration }}
-        path: Distribution/${{ matrix.configuration }}/net8.0/
+        path: Distribution/${{ matrix.configuration }}/
         retention-days: 30
