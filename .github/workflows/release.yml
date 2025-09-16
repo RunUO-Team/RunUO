@@ -12,19 +12,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Setup .NET Framework
+    - name: Setup .NET 8
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
 
-    - name: Restore NuGet packages
-      run: nuget restore RunUO.sln
+    - name: Restore dependencies
+      run: dotnet restore Server/Server.csproj
 
     - name: Build Release
-      run: msbuild RunUO.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.8
+      run: dotnet build Server/Server.csproj --configuration Release --no-restore
 
     - name: Create release archives
       run: |
@@ -39,28 +36,42 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         gh release create ${{ github.ref_name }} `
-          --title "RunUO Server ${{ github.ref_name }}" `
-          --notes "# RunUO Server ${{ github.ref_name }} - Official Re-release
+          --title "RunUO v3.0 - .NET 8 Cross-Platform Release" `
+          --notes "# RunUO v3.0 - .NET 8 Cross-Platform Release
 
-        This is the official re-release of RunUO Server, originally created by **Ryan McAdams** and **Zac Torkelson (Krrios)** in 2002.
+        Major modernization of RunUO bringing it into the modern .NET ecosystem with full cross-platform support.
 
-        ## 🚀 Features
-        - Complete UO protocol implementation with multi-era client support
-        - Dynamic C# script compilation system for hot-swappable game content
-        - Comprehensive game systems including crafting, PvP, quests, and more
-        - Cross-platform compatibility with .NET Framework and Mono
-        - Extensible architecture for custom content development
+        ## 🎯 Key Features
+        - **Migrated to .NET 8** for modern runtime and cross-platform compatibility
+        - **True Cross-Platform** - runs natively on Windows, Linux, and macOS
+        - **Modernized APIs** - updated deprecated crypto, network, and system APIs
+        - **Simplified UO Data Discovery** - automatic detection with cross-platform fallbacks
+        - **Removed Legacy Systems** - eliminated Reports engine for cleaner codebase
+        - **Updated Version** - 3.0.0.0 displayed in server console
+
+        ## 🔧 Technical Changes
+        - Upgraded from .NET Framework to .NET 8.0
+        - Removed Windows-specific dependencies (Registry lookups)
+        - Updated deprecated APIs (MD5, SHA1, TimeZone, WebRequest)
+        - Fixed thousands of nullable reference type warnings
+        - Deleted entire Reports engine (35+ files, 6,675 lines removed)
 
         ## 📦 Installation
         1. Download the release archive
         2. Extract to your desired directory
-        3. Ensure you have .NET Framework 4.8 installed
-        4. Run RunUO.exe
+        3. Place UO client files in UOData/ folder in server root
+        4. Ensure you have .NET 8.0 Runtime installed
+        5. Run RunUO.exe (Windows) or ./RunUO (Linux/macOS)
 
         ## 🔧 Requirements
-        - .NET Framework 4.8 (or .NET 6.0+ with compatibility)
-        - Ultima Online client files (not included)
-        - Windows, Linux, or macOS (with Mono)
+        - .NET 8.0 Runtime or later
+        - Ultima Online client files (place in UOData/ folder)
+        - Windows, Linux, or macOS
+
+        ## ⚠️ Breaking Changes
+        - Reports engine completely removed
+        - Windows Registry lookups replaced with UOData folder requirement
+        - Some deprecated API signatures updated
 
         Built from commit: ${{ github.sha }}" `
           --latest `
