@@ -36,7 +36,7 @@ namespace Server
 	{
 		private int m_Major, m_Minor, m_Revision, m_Patch;
 		private ClientType m_Type;
-		private string m_SourceString;
+		private string? m_SourceString;
 
 		public int Major
 		{
@@ -78,7 +78,7 @@ namespace Server
 			}
 		}
 
-		public string SourceString
+		public string? SourceString
 		{
 			get
 			{
@@ -136,12 +136,12 @@ namespace Server
 			return m_Major ^ m_Minor ^ m_Revision ^ m_Patch ^ (int)m_Type;
 		}
 
-		public override bool Equals( object obj )
+		public override bool Equals( object? obj )
 		{
 			if ( obj == null )
 				return false;
 
-			ClientVersion v = obj as ClientVersion;
+			ClientVersion? v = obj as ClientVersion;
 
 			if ( v == null )
 				return false;
@@ -232,12 +232,12 @@ namespace Server
 			}
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			if ( obj == null )
 				return 1;
 
-			ClientVersion o = obj as ClientVersion;
+			ClientVersion? o = obj as ClientVersion;
 
 			if ( o == null )
 				throw new ArgumentException();
@@ -267,7 +267,7 @@ namespace Server
 			return Object.ReferenceEquals( x, null );
 		}
 
-		public int Compare( object x, object y )
+		public int Compare( object? x, object? y )
 		{
 			if ( IsNull( x ) && IsNull( y ) )
 				return 0;
@@ -276,8 +276,8 @@ namespace Server
 			else if ( IsNull( y ) )
 				return 1;
 
-			ClientVersion a = x as ClientVersion;
-			ClientVersion b = y as ClientVersion;
+			ClientVersion? a = x as ClientVersion;
+			ClientVersion? b = y as ClientVersion;
 
 			if ( IsNull( a ) || IsNull( b ) )
 				throw new ArgumentException();

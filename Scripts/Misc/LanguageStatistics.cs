@@ -342,7 +342,7 @@ namespace Server.Misc
 			{
 			}
 
-			public int Compare( InternationalCodeCounter x, InternationalCodeCounter y )
+			public int Compare( InternationalCodeCounter? x, InternationalCodeCounter? y )
 			{
 				string a = null, b = null;
 				int ca = 0, cb = 0;

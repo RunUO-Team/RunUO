@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using Server;
@@ -167,22 +168,12 @@ namespace Server.Misc
 		private static IPAddress FindPublicAddress()
 		{
 			try {
-				WebRequest req = HttpWebRequest.Create( "http://www.runuo.com/ip.php" );
-				req.Timeout = 15000;
-
-				WebResponse res = req.GetResponse();
-
-				Stream s = res.GetResponseStream();
-
-				StreamReader sr = new StreamReader( s );
-
-				IPAddress ip = IPAddress.Parse( sr.ReadLine() );
-
-				sr.Close();
-				s.Close();
-				res.Close();
-
-				return ip;
+				using ( var client = new HttpClient() )
+				{
+					client.Timeout = TimeSpan.FromMilliseconds( 15000 );
+					var response = client.GetStringAsync( "http://www.runuo.com/ip.php" ).GetAwaiter().GetResult();
+					return IPAddress.Parse( response.Trim() );
+				}
 			} catch {
 				return null;
 			}

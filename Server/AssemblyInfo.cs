@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 //
 [assembly: AssemblyTitle("RunUO Server Core")]	//Having just RunUO there is reundant, ie, RunUO.exe with the word 'RunUO' under it
-[assembly: AssemblyDescription("UO Server Software")]
+[assembly: AssemblyDescription("UO Server Software - .NET 8 Cross-Platform")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The RunUO Team")]
 [assembly: AssemblyProduct("")]

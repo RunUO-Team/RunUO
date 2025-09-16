@@ -32,12 +32,12 @@ namespace Server.Commands
 			Invoke( from, start, end, args, null, false, false );
 		}
 
-		public static void Invoke( Mobile from, Point3D start, Point3D end, string[] args, List<Container> packs )
+		public static void Invoke( Mobile from, Point3D start, Point3D end, string[] args, List<Container>? packs )
 		{
 			Invoke( from, start, end, args, packs, false, false );
 		}
 
-		public static void Invoke( Mobile from, Point3D start, Point3D end, string[] args, List<Container> packs, bool outline, bool mapAvg )
+		public static void Invoke( Mobile from, Point3D start, Point3D end, string[] args, List<Container>? packs, bool outline, bool mapAvg )
 		{
 			StringBuilder sb = new StringBuilder();
 

@@ -315,7 +315,7 @@ namespace Server
 			return true;
 		}
 
-		private static void CurrentDomain_ProcessExit( object sender, EventArgs e )
+		private static void CurrentDomain_ProcessExit( object? sender, EventArgs e )
 		{
 			HandleClosed();
 		}
@@ -457,8 +457,7 @@ namespace Server
 			if( m_MultiProcessor || Is64Bit )
 				Console.WriteLine( "Core: Optimizing for {0} {2}processor{1}", m_ProcessorCount, m_ProcessorCount == 1 ? "" : "s", Is64Bit ? "64-bit " : "" );
 
-			int platform = (int)Environment.OSVersion.Platform;
-			if( platform == 4 || platform == 128 ) { // MS 4, MONO 128
+			if( Environment.OSVersion.Platform == PlatformID.Unix ) {
 				m_Unix = true;
 				Console.WriteLine( "Core: Unix environment detected" );
 			}
@@ -470,18 +469,11 @@ namespace Server
 			if ( GCSettings.IsServerGC )
 				Console.WriteLine("Core: Server garbage collection mode enabled");
 
-			while( !ScriptCompiler.Compile( m_Debug, m_Cache ) )
-			{
-				Console.WriteLine( "Scripts: One or more scripts failed to compile or no script files were found." );
-				
-				if( m_Service )
-					return;
+			// Scripts are now pre-compiled, no runtime compilation needed
+			Console.WriteLine( "Scripts: Using pre-compiled scripts from build." );
 
-				Console.WriteLine( " - Press return to exit, or R to try again." );
-				
-				if( Console.ReadKey( true ).Key != ConsoleKey.R )
-					return;
-			}
+			// Initialize assemblies array with current assembly for pre-compiled scripts
+			ScriptCompiler.Assemblies = new Assembly[] { Assembly.GetExecutingAssembly() };
 
 			ScriptCompiler.Invoke( "Configure" );
 			

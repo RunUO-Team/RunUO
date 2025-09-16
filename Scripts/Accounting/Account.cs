@@ -398,14 +398,14 @@ namespace Server.Accounting
 			return ( banTime != DateTime.MinValue && banDuration != TimeSpan.Zero );
 		}
 
-		private static MD5CryptoServiceProvider m_MD5HashProvider;
-		private static SHA1CryptoServiceProvider m_SHA1HashProvider;
+		private static MD5 m_MD5HashProvider;
+		private static SHA1 m_SHA1HashProvider;
 		private static byte[] m_HashBuffer;
 
 		public static string HashMD5( string phrase )
 		{
 			if ( m_MD5HashProvider == null )
-				m_MD5HashProvider = new MD5CryptoServiceProvider();
+				m_MD5HashProvider = MD5.Create();
 
 			if ( m_HashBuffer == null )
 				m_HashBuffer = new byte[256];
@@ -419,7 +419,7 @@ namespace Server.Accounting
 		public static string HashSHA1( string phrase )
 		{
 			if ( m_SHA1HashProvider == null )
-				m_SHA1HashProvider = new SHA1CryptoServiceProvider();
+				m_SHA1HashProvider = SHA1.Create();
 
 			if ( m_HashBuffer == null )
 				m_HashBuffer = new byte[256];

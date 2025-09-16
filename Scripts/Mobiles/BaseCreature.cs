@@ -120,7 +120,7 @@ namespace Server.Mobiles
 			m_Damage = damage;
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			DamageStore ds = (DamageStore)obj;
 

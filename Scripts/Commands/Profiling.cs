@@ -86,7 +86,7 @@ namespace Server.Commands
 
 		private class CountSorter : IComparer
 		{
-			public int Compare( object x, object y )
+			public int Compare( object? x, object? y )
 			{
 				DictionaryEntry a = (DictionaryEntry)x;
 				DictionaryEntry b = (DictionaryEntry)y;

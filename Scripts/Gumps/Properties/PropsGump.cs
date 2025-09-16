@@ -166,7 +166,7 @@ namespace Server.Gumps
 				AddImageTiled( x, y, emptyWidth, EntryHeight, HeaderGumpID );
 
 			if ( TypeLabel && m_Type != null )
-				AddHtml( x, y, emptyWidth, EntryHeight, String.Format( "<BASEFONT COLOR=#FAFAFA><CENTER>{0}</CENTER></BASEFONT>", m_Type.Name ), false, false );
+				AddHtml( x, y, emptyWidth, EntryHeight, $"<BASEFONT COLOR=#FAFAFA><CENTER>{m_Type.Name}</CENTER></BASEFONT>", false, false );
 
 			x += emptyWidth + OffsetSize;
 
@@ -454,7 +454,7 @@ namespace Server.Gumps
 			}
 			catch ( Exception e )
 			{
-				return String.Format( "!{0}!", e.GetType() );
+				return $"!{e.GetType()}!";
 			}
 		}
 
@@ -466,7 +466,7 @@ namespace Server.Gumps
 			}
 			else if ( o is string )
 			{
-				return String.Format( "\"{0}\"", (string)o );
+				return $"\"{(string)o}\"";
 			}
 			else if ( o is bool )
 			{
@@ -474,7 +474,7 @@ namespace Server.Gumps
 			}
 			else if ( o is char )
 			{
-				return String.Format( "0x{0:X} '{1}'", (int)(char)o, (char)o );
+				return $"0x{(int)(char)o:X} '{(char)o}'";
 			}
 			else if ( o is Serial )
 			{
@@ -484,27 +484,27 @@ namespace Server.Gumps
 				{
 					if ( s.IsItem )
 					{
-						return String.Format( "(I) 0x{0:X}", s.Value );
+						return $"(I) 0x{s.Value:X}";
 					}
 					else if ( s.IsMobile )
 					{
-						return String.Format( "(M) 0x{0:X}", s.Value );
+						return $"(M) 0x{s.Value:X}";
 					}
 				}
 
-				return String.Format( "(?) 0x{0:X}", s.Value );
+				return $"(?) 0x{s.Value:X}";
 			}
 			else if ( o is byte || o is sbyte || o is short || o is ushort || o is int || o is uint || o is long || o is ulong )
 			{
-				return String.Format( "{0} (0x{0:X})", o );
+				return $"{o} (0x{o:X})";
 			}
 			else if ( o is Mobile )
 			{
-				return String.Format( "(M) 0x{0:X} \"{1}\"", ((Mobile)o).Serial.Value, ((Mobile)o).Name );
+				return $"(M) 0x{((Mobile)o).Serial.Value:X} \"{((Mobile)o).Name}\"";
 			}
 			else if ( o is Item )
 			{
-				return String.Format( "(I) 0x{0:X}", ((Item)o).Serial.Value );
+				return $"(I) 0x{((Item)o).Serial.Value:X}";
 			}
 			else if ( o is Type )
 			{
@@ -654,7 +654,7 @@ namespace Server.Gumps
 			}
 			else if ( o is string )
 			{
-				return String.Format( "\"{0}\"", (string)o );
+				return $"\"{(string)o}\"";
 			}
 			else if ( o is bool )
 			{
@@ -662,7 +662,7 @@ namespace Server.Gumps
 			}
 			else if ( o is char )
 			{
-				return String.Format( "0x{0:X} '{1}'", (int)(char)o, (char)o );
+				return $"0x{(int)(char)o:X} '{(char)o}'";
 			}
 			else if ( o is Serial )
 			{
@@ -672,27 +672,27 @@ namespace Server.Gumps
 				{
 					if ( s.IsItem )
 					{
-						return String.Format( "(I) 0x{0:X}", s.Value );
+						return $"(I) 0x{s.Value:X}";
 					}
 					else if ( s.IsMobile )
 					{
-						return String.Format( "(M) 0x{0:X}", s.Value );
+						return $"(M) 0x{s.Value:X}";
 					}
 				}
 
-				return String.Format( "(?) 0x{0:X}", s.Value );
+				return $"(?) 0x{s.Value:X}";
 			}
 			else if ( o is byte || o is sbyte || o is short || o is ushort || o is int || o is uint || o is long || o is ulong )
 			{
-				return String.Format( "{0} (0x{0:X})", o );
+				return $"{o} (0x{o:X})";
 			}
 			else if ( o is Mobile )
 			{
-				return String.Format( "(M) 0x{0:X} \"{1}\"", ((Mobile)o).Serial.Value, ((Mobile)o).Name );
+				return $"(M) 0x{((Mobile)o).Serial.Value:X} \"{((Mobile)o).Name}\"";
 			}
 			else if ( o is Item )
 			{
-				return String.Format( "(I) 0x{0:X}", ((Item)o).Serial.Value );
+				return $"(I) 0x{((Item)o).Serial.Value:X}";
 			}
 			else if ( o is Type )
 			{
@@ -712,7 +712,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( object x, object y )
+			public int Compare( object? x, object? y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -754,7 +754,7 @@ namespace Server.Gumps
 				return dist;
 			}
 
-			public int Compare( object x, object y )
+			public int Compare( object? x, object? y )
 			{
 				if ( x == null && y == null )
 					return 0;

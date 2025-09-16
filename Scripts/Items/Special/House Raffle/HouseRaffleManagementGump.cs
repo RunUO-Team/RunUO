@@ -239,7 +239,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( RaffleEntry x, RaffleEntry y )
+			public int Compare( RaffleEntry? x, RaffleEntry? y )
 			{
 				bool xIsNull = ( x == null || x.From == null );
 				bool yIsNull = ( y == null || y.From == null );
@@ -268,7 +268,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( RaffleEntry x, RaffleEntry y )
+			public int Compare( RaffleEntry? x, RaffleEntry? y )
 			{
 				bool xIsNull = ( x == null || x.From == null );
 				bool yIsNull = ( y == null || y.From == null );
@@ -307,7 +307,7 @@ namespace Server.Gumps
 			{
 			}
 
-			public int Compare( RaffleEntry x, RaffleEntry y )
+			public int Compare( RaffleEntry? x, RaffleEntry? y )
 			{
 				bool xIsNull = ( x == null || x.Address == null );
 				bool yIsNull = ( y == null || y.Address == null );

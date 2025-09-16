@@ -58,7 +58,7 @@ namespace Server.Mobiles
 			set{ m_Owner = value; }
 		}
 
-		public List<Item> Items
+		public List<Item>? Items
 		{
 			get{ return m_Items; }
 		}

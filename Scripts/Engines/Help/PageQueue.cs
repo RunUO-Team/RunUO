@@ -7,7 +7,6 @@ using Server.Mobiles;
 using Server.Network;
 using Server.Misc;
 using Server.Accounting;
-using Server.Engines.Reports;
 using Server.Commands;
 using System.Collections.Generic;
 
@@ -41,13 +40,6 @@ namespace Server.Engines.Help
 		private Point3D m_PageLocation;
 		private Map m_PageMap;
 		private List<SpeechLogEntry> m_SpeechLog;
-
-		private PageInfo m_PageInfo;
-
-		public PageInfo PageInfo
-		{
-			get{ return m_PageInfo; }
-		}
 
 		public Mobile Sender
 		{
@@ -130,14 +122,7 @@ namespace Server.Engines.Help
 
 		public void AddResponse( Mobile mob, string text )
 		{
-			if ( m_PageInfo != null )
-			{
-				lock ( m_PageInfo )
-					m_PageInfo.Responses.Add( PageInfo.GetAccount( mob ), text );
-
-				if ( PageInfo.ResFromResp( text ) != PageResolution.None )
-					m_PageInfo.UpdateResolver();
-			}
+			// Reports system removed - no longer tracking page responses
 		}
 
 		public PageEntry( Mobile sender, string message, PageType type )
@@ -156,14 +141,7 @@ namespace Server.Engines.Help
 			m_Timer = new InternalTimer( this );
 			m_Timer.Start();
 
-			StaffHistory history = Reports.Reports.StaffHistory;
-
-			if ( history != null )
-			{
-				m_PageInfo = new PageInfo( this );
-
-				history.AddPage( m_PageInfo );
-			}
+			// Reports system removed - no longer tracking pages in staff history
 		}
 
 		private class InternalTimer : Timer
@@ -183,7 +161,7 @@ namespace Server.Engines.Help
 
 				if ( m_Entry.Sender.NetState != null && index != -1 )
 				{
-					m_Entry.Sender.SendLocalizedMessage( 1008077, true, (index + 1).ToString() ); // Thank you for paging. Queue status : 
+					m_Entry.Sender.SendLocalizedMessage( 1008077, true, (index + 1).ToString() ); // Thank you for paging. Queue status :
 					m_Entry.Sender.SendLocalizedMessage( 1008084 ); // You can reference our website at www.uo.com or contact us at support@uo.com. To cancel your page, please select the help button again and select cancel.
 
 					if ( m_Entry.Handler != null && m_Entry.Handler.NetState == null ) {

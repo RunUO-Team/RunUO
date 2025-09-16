@@ -268,13 +268,13 @@ namespace Server.RemoteAdmin
 				m_OnChar( ch );
 		}
 
-		public override void Write( string str )
+		public override void Write( string? str )
 		{
 			if ( m_OnStr != null )
 				m_OnStr( str );
 		}
 
-		public override void WriteLine( string line )
+		public override void WriteLine( string? line )
 		{
 			if ( m_OnLine != null )
 				m_OnLine( line );

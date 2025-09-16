@@ -68,7 +68,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "({0}, {1})", m_X, m_Y );
+			return $"({m_X}, {m_Y})";
 		}
 
 		public static Point2D Parse( string value )
@@ -286,7 +286,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "({0}, {1}, {2})", m_X, m_Y, m_Z );
+			return $"({m_X}, {m_Y}, {m_Z})";
 		}
 
 		public override bool Equals( object o )
@@ -539,7 +539,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "({0}, {1})+({2}, {3})", X, Y, Width, Height );
+			return $"({X}, {Y})+({Width}, {Height})";
 		}
 	}
 
