@@ -48,16 +48,16 @@ namespace Server.Commands
 			}
 		}
 
-		private static Mobile m_Mobile;
+		private static Mobile? m_Mobile;
 		private static int m_Count;
 	}
 
 	public class DecorationListMag
 	{
-		private Type m_Type;
+		private Type? m_Type;
 		private int m_ItemID;
-		private string[] m_Params;
-		private ArrayList m_Entries;
+		private string[]? m_Params;
+		private ArrayList? m_Entries;
 
 		public DecorationListMag()
 		{

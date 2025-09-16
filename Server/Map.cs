@@ -1663,7 +1663,7 @@ namespace Server
 					case SectorEnumeratorType.Items:
 						return sector.Items;
 					default:
-						throw new Exception( "Invalid SectorEnumeratorType" );
+						throw new ArgumentException( "Invalid SectorEnumeratorType" );
 				}
 			}
 
@@ -1689,7 +1689,7 @@ namespace Server
 						}
 						else
 						{
-							throw new Exception( "Object disposed during enumeration. Was not recoverable." );
+							throw new ObjectDisposedException( nameof(SectorEnumerator), "Object disposed during enumeration. Was not recoverable." );
 						}
 					}*/
 				}

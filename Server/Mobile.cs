@@ -1081,9 +1081,9 @@ namespace Server
 			if( guild != null && (m_Player || m_DisplayGuildTitle) )
 			{
 				if( suffix.Length > 0 )
-					suffix = String.Format( "{0} [{1}]", suffix, Utility.FixHtml( guild.Abbreviation ) );
+					suffix = $"{suffix} [{Utility.FixHtml( guild.Abbreviation )}]";
 				else
-					suffix = String.Format( "[{0}]", Utility.FixHtml( guild.Abbreviation ) );
+					suffix = $"[{Utility.FixHtml( guild.Abbreviation )}]";
 			}
 
 			suffix = ApplyNameSuffix( suffix );
@@ -1842,7 +1842,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "0x{0:X} \"{1}\"", m_Serial.Value, Name );
+			return $"0x{m_Serial.Value:X} \"{Name}\"";
 		}
 
 		public DateTime NextActionTime
@@ -4628,6 +4628,7 @@ namespace Server
 
 			bool valid = ( item != null && item.HeldBy == from && item.Map == Map.Internal );
 
+
 			from.Holding = null;
 
 			if ( !valid ) {
@@ -6468,12 +6469,12 @@ namespace Server
 
 		public void SayTo( Mobile to, string format, params object[] args )
 		{
-			SayTo( to, false, String.Format( format, args ) );
+			SayTo( to, false, string.Format( format, args ) );
 		}
 
 		public void SayTo( Mobile to, bool ascii, string format, params object[] args )
 		{
-			SayTo( to, ascii, String.Format( format, args ) );
+			SayTo( to, ascii, string.Format( format, args ) );
 		}
 
 		public void SayTo( Mobile to, int number )
@@ -6498,7 +6499,7 @@ namespace Server
 
 		public void Say( string format, params object[] args )
 		{
-			Say( String.Format( format, args ) );
+			Say( string.Format( format, args ) );
 		}
 
 		public void Say( int number, AffixType type, string affix, string args )
@@ -6523,7 +6524,7 @@ namespace Server
 
 		public void Emote( string format, params object[] args )
 		{
-			Emote( String.Format( format, args ) );
+			Emote( string.Format( format, args ) );
 		}
 
 		public void Emote( int number )
@@ -6543,7 +6544,7 @@ namespace Server
 
 		public void Whisper( string format, params object[] args )
 		{
-			Whisper( String.Format( format, args ) );
+			Whisper( string.Format( format, args ) );
 		}
 
 		public void Whisper( int number )
@@ -6563,7 +6564,7 @@ namespace Server
 
 		public void Yell( string format, params object[] args )
 		{
-			Yell( String.Format( format, args ) );
+			Yell( string.Format( format, args ) );
 		}
 
 		public void Yell( int number )
@@ -10801,7 +10802,7 @@ namespace Server
 
 		public void SendMessage( string format, params object[] args )
 		{
-			SendMessage( 0x3B2, String.Format( format, args ) );
+			SendMessage( 0x3B2, string.Format( format, args ) );
 		}
 
 		public void SendMessage( int hue, string text )
@@ -10814,7 +10815,7 @@ namespace Server
 
 		public void SendMessage( int hue, string format, params object[] args )
 		{
-			SendMessage( hue, String.Format( format, args ) );
+			SendMessage( hue, string.Format( format, args ) );
 		}
 
 		public void SendAsciiMessage( string text )
@@ -10824,7 +10825,7 @@ namespace Server
 
 		public void SendAsciiMessage( string format, params object[] args )
 		{
-			SendAsciiMessage( 0x3B2, String.Format( format, args ) );
+			SendAsciiMessage( 0x3B2, string.Format( format, args ) );
 		}
 
 		public void SendAsciiMessage( int hue, string text )
@@ -10837,7 +10838,7 @@ namespace Server
 
 		public void SendAsciiMessage( int hue, string format, params object[] args )
 		{
-			SendAsciiMessage( hue, String.Format( format, args ) );
+			SendAsciiMessage( hue, string.Format( format, args ) );
 		}
 
 		#endregion
@@ -11090,7 +11091,7 @@ namespace Server
 					else
 						type = "";
 
-					string text = String.Format( title.Length <= 0 ? "[{1}]{2}" : "[{0}, {1}]{2}", title, guild.Abbreviation, type );
+					string text = title.Length <= 0 ? $"[{guild.Abbreviation}]{type}" : $"[{title}, {guild.Abbreviation}]{type}";
 
 					PrivateOverheadMessage( MessageType.Regular, SpeechHue, true, text, from.NetState );
 				}

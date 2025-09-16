@@ -143,7 +143,7 @@ namespace Server.SkillHandlers
 				m_From = from;
 			}
 
-			public int Compare( Mobile x, Mobile y )
+			public int Compare( Mobile? x, Mobile? y )
 			{
 				if ( x == null && y == null )
 					return 0;

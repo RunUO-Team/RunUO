@@ -80,7 +80,7 @@ namespace Server.Engines.MyRunUO
 			return oldLayer;
 		}
 
-		public int Compare( object x, object y )
+		public int Compare( object? x, object? y )
 		{
 			Item a = (Item)x;
 			Item b = (Item)y;

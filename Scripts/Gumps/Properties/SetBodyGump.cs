@@ -279,7 +279,7 @@ namespace Server.Gumps
 				m_DisplayName = m_DisplayName.Replace( '_', ' ' );
 			}
 
-			public int CompareTo( object obj )
+			public int CompareTo( object? obj )
 			{
 				InternalEntry comp = (InternalEntry)obj;
 

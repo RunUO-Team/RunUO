@@ -27,7 +27,7 @@ namespace Server.Guilds
 			{
 			}
 
-			public int Compare( Guild x, Guild y )
+			public int Compare( Guild? x, Guild? y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -54,7 +54,7 @@ namespace Server.Guilds
 				m_Guild = g;
 			}
 
-			public int Compare( Guild x, Guild y )
+			public int Compare( Guild? x, Guild? y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -88,7 +88,7 @@ namespace Server.Guilds
 			{
 			}
 
-			public int Compare( Guild x, Guild y )
+			public int Compare( Guild? x, Guild? y )
 			{
 				if ( x == null && y == null )
 					return 0;

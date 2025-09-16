@@ -21,7 +21,7 @@ namespace Server.Guilds
 			{
 			}
 
-			public int Compare( PlayerMobile x, PlayerMobile y )
+			public int Compare( PlayerMobile? x, PlayerMobile? y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -42,7 +42,7 @@ namespace Server.Guilds
 			{
 			}
 
-			public int Compare( PlayerMobile x, PlayerMobile y )
+			public int Compare( PlayerMobile? x, PlayerMobile? y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -72,7 +72,7 @@ namespace Server.Guilds
 			{
 			}
 
-			public int Compare( PlayerMobile x, PlayerMobile y )
+			public int Compare( PlayerMobile? x, PlayerMobile? y )
 			{
 				if ( x == null && y == null )
 					return 0;
@@ -93,7 +93,7 @@ namespace Server.Guilds
 			{
 			}
 
-			public int Compare( PlayerMobile x, PlayerMobile y )
+			public int Compare( PlayerMobile? x, PlayerMobile? y )
 			{
 				if ( x == null && y == null )
 					return 0;

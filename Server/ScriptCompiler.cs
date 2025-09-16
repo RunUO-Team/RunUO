@@ -89,9 +89,6 @@ namespace Server
 			if( !debug )
 				AppendCompilerOption( ref sb, "/optimize" );
 
-#if MONO
-			AppendCompilerOption( ref sb, "/d:MONO" );
-#endif
 
 			//These two defines are legacy, ie, depreciated.
 			if( Core.Is64Bit )
@@ -233,32 +230,16 @@ namespace Server
 				if( Core.HaltOnWarning )
 					parms.WarningLevel = 4;
 
-#if !MONO
 				CompilerResults results = provider.CompileAssemblyFromFile( parms, files );
-#else
-				parms.CompilerOptions = String.Format( "{0} /nowarn:169,219,414 /recurse:Scripts/*.cs", parms.CompilerOptions );
-				CompilerResults results = provider.CompileAssemblyFromFile( parms, "" );
-#endif
 				m_AdditionalReferences.Add( path );
 
 				Display( results );
 
-#if !MONO
 				if( results.Errors.Count > 0 )
 				{
 					assembly = null;
 					return false;
 				}
-#else
-				if( results.Errors.Count > 0 ) {
-					foreach( CompilerError err in results.Errors ) {
-						if ( !err.IsWarning ) {
-							assembly = null;
-							return false;
-						}
-					}
-				}
-#endif
 
 
 				if( cache && Path.GetFileName( path ) == "Scripts.CS.dll" )
@@ -541,8 +522,8 @@ namespace Server
 
 		public static bool Compile( bool debug, bool cache )
 		{
-			EnsureDirectory( "Scripts/" );
-			EnsureDirectory( "Scripts/Output/" );
+			EnsureDirectory( Path.Combine( Core.BaseDirectory, "Scripts" ) );
+			EnsureDirectory( Path.Combine( Core.BaseDirectory, "Scripts", "Output" ) );
 
 			if( m_AdditionalReferences.Count > 0 )
 				m_AdditionalReferences.Clear();
@@ -606,17 +587,16 @@ namespace Server
 		{
 			List<MethodInfo> invoke = new List<MethodInfo>();
 
-			for( int a = 0; a < m_Assemblies.Length; ++a )
+			// For pre-compiled scripts, search in the current assembly
+			Assembly currentAssembly = Assembly.GetExecutingAssembly();
+			Type[] types = currentAssembly.GetTypes();
+
+			for( int i = 0; i < types.Length; ++i )
 			{
-				Type[] types = m_Assemblies[a].GetTypes();
+				MethodInfo m = types[i].GetMethod( method, BindingFlags.Static | BindingFlags.Public );
 
-				for( int i = 0; i < types.Length; ++i )
-				{
-					MethodInfo m = types[i].GetMethod( method, BindingFlags.Static | BindingFlags.Public );
-
-					if( m != null )
-						invoke.Add( m );
-				}
+				if( m != null )
+					invoke.Add( m );
 			}
 
 			invoke.Sort( new CallPriorityComparer() );

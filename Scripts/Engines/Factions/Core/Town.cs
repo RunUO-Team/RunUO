@@ -494,7 +494,7 @@ namespace Server.Factions
 			ConstructGuardLists();
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			return m_Definition.Sort - ((Town)obj).m_Definition.Sort;
 		}

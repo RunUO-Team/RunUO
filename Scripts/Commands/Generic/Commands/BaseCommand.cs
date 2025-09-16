@@ -15,13 +15,13 @@ namespace Server.Commands.Generic
 
 	public abstract class BaseCommand
 	{
-		private string[] m_Commands;
+		private string[]? m_Commands;
 		private AccessLevel m_AccessLevel;
 		private CommandSupport m_Implementors;
 		private ObjectTypes m_ObjectTypes;
 		private bool m_ListOptimized;
-		private string m_Usage;
-		private string m_Description;
+		private string? m_Usage;
+		private string? m_Description;
 
 		public bool ListOptimized
 		{
@@ -29,19 +29,19 @@ namespace Server.Commands.Generic
 			set{ m_ListOptimized = value; }
 		}
 
-		public string[] Commands
+		public string[]? Commands
 		{
 			get{ return m_Commands; }
 			set{ m_Commands = value; }
 		}
 
-		public string Usage
+		public string? Usage
 		{
 			get{ return m_Usage; }
 			set{ m_Usage = value; }
 		}
 
-		public string Description
+		public string? Description
 		{
 			get{ return m_Description; }
 			set{ m_Description = value; }

@@ -24,22 +24,18 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-#if !MONO
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
-#endif
 
 namespace Server {
 	public static class FileOperations {
 		public const int KB = 1024;
 		public const int MB = 1024 * KB;
 
-#if !MONO
 		private const FileOptions NoBuffering = ( FileOptions ) 0x20000000;
 
 		[DllImport( "Kernel32", CharSet = CharSet.Auto, SetLastError = true )]
 		private static extern SafeFileHandle CreateFile( string lpFileName, int dwDesiredAccess, FileShare dwShareMode, IntPtr securityAttrs, FileMode dwCreationDisposition, int dwFlagsAndAttributes, IntPtr hTemplateFile );
-#endif
 
 		private static int bufferSize = 1 * MB;
 		private static int concurrency = 1;
@@ -92,26 +88,20 @@ namespace Server {
 				options |= FileOptions.Asynchronous;
 			}
 
-#if MONO
-			return new FileStream( path, mode, access, share, bufferSize, options );
-#else
 			if ( unbuffered ) {
 				options |= NoBuffering;
+				SafeFileHandle fileHandle = CreateFile( path, (int) access, share, IntPtr.Zero, mode, (int) options, IntPtr.Zero );
+
+				if ( fileHandle.IsInvalid ) {
+					throw new IOException();
+				}
+
+				return new UnbufferedFileStream( fileHandle, access, bufferSize, ( concurrency > 0 ) );
 			} else {
 				return new FileStream( path, mode, access, share, bufferSize, options );
 			}
-
-			SafeFileHandle fileHandle = CreateFile( path, (int) access, share, IntPtr.Zero, mode, (int) options, IntPtr.Zero );
-
-			if ( fileHandle.IsInvalid ) {
-				throw new IOException();
-			}
-
-			return new UnbufferedFileStream( fileHandle, access, bufferSize, ( concurrency > 0 ) );
-#endif
 		}
 
-#if !MONO
 		private class UnbufferedFileStream : FileStream {
 			private SafeFileHandle fileHandle;
 
@@ -136,6 +126,5 @@ namespace Server {
 				base.Dispose( disposing );
 			}
 		}
-#endif
 	}
 }

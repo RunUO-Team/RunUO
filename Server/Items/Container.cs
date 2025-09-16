@@ -1783,7 +1783,7 @@ namespace Server.Items
 
 									if ( m_Table.ContainsKey( id ) )
 									{
-										Console.WriteLine( @"Warning: double ItemID entry in Data\containers.cfg" );
+										Console.WriteLine( "Warning: double ItemID entry in Data/containers.cfg" );
 									}
 									else
 									{

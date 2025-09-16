@@ -540,7 +540,7 @@ namespace Server.Factions
 			return m_Definition.FriendlyName;
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			return m_Definition.Sort - ((Faction)obj).m_Definition.Sort;
 		}
