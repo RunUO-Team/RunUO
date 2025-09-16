@@ -2,39 +2,46 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, netcore-migration ]
     tags: [ 'v*' ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, netcore-migration ]
 
 jobs:
   build:
-    runs-on: windows-2022
-
     strategy:
       matrix:
+        os: [windows-2022, ubuntu-22.04]
         configuration: [Debug, Release]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Setup .NET Framework
+    - name: Setup .NET 8
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
 
-    - name: Restore NuGet packages
-      run: nuget restore RunUO.sln
+    - name: Restore dependencies
+      run: dotnet restore Server/Server.csproj
 
-    - name: Build solution
-      run: msbuild RunUO.sln /p:Configuration=${{ matrix.configuration }} /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.8
+    - name: Build project
+      run: dotnet build Server/Server.csproj --configuration ${{ matrix.configuration }} --no-restore
 
-    - name: Upload build artifacts
+    - name: Upload build artifacts (Windows)
+      if: matrix.os == 'windows-2022'
       uses: actions/upload-artifact@v4
       with:
-        name: RunUO-${{ matrix.configuration }}
+        name: RunUO-${{ matrix.os }}-${{ matrix.configuration }}
+        path: Distribution/${{ matrix.configuration }}/
+        retention-days: 30
+
+    - name: Upload build artifacts (Linux)
+      if: matrix.os == 'ubuntu-22.04'
+      uses: actions/upload-artifact@v4
+      with:
+        name: RunUO-${{ matrix.os }}-${{ matrix.configuration }}
         path: Distribution/${{ matrix.configuration }}/
         retention-days: 30

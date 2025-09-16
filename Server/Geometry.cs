@@ -68,7 +68,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "({0}, {1})", m_X, m_Y );
+			return $"({m_X}, {m_Y})";
 		}
 
 		public static Point2D Parse( string value )
@@ -96,7 +96,7 @@ namespace Server
 			return v;
 		}
 
-		public int CompareTo( object other )
+		public int CompareTo( object? other )
 		{
 			if ( other is Point2D )
 				return this.CompareTo( (Point2D) other );
@@ -106,7 +106,7 @@ namespace Server
 			throw new ArgumentException();
 		}
 
-		public override bool Equals( object o )
+		public override bool Equals( object? o )
 		{
 			if ( o == null || !(o is IPoint2D) ) return false;
 
@@ -286,10 +286,10 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "({0}, {1}, {2})", m_X, m_Y, m_Z );
+			return $"({m_X}, {m_Y}, {m_Z})";
 		}
 
-		public override bool Equals( object o )
+		public override bool Equals( object? o )
 		{
 			if ( o == null || !( o is IPoint3D ) )
 				return false;
@@ -365,7 +365,7 @@ namespace Server
 			return v;
 		}
 
-		public int CompareTo( object other )
+		public int CompareTo( object? other )
 		{
 			if ( other is Point3D )
 				return this.CompareTo( (Point3D) other );
@@ -539,7 +539,7 @@ namespace Server
 
 		public override string ToString()
 		{
-			return String.Format( "({0}, {1})+({2}, {3})", X, Y, Width, Height );
+			return $"({X}, {Y})+({Width}, {Height})";
 		}
 	}
 

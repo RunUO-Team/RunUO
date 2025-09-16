@@ -1,14 +1,12 @@
 using System;
 using System.IO;
-using System.Web;
-using System.Web.UI;
 using System.Net;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Collections;
 using System.Diagnostics;
-using HtmlTag = System.Web.UI.HtmlTextWriterTag;
-using HtmlAttr = System.Web.UI.HtmlTextWriterAttribute;
+using HtmlTag = Server.Engines.Reports.HtmlTextWriterTag;
+using HtmlAttr = Server.Engines.Reports.HtmlTextWriterAttribute;
 
 namespace Server.Engines.Reports
 {
@@ -188,7 +186,7 @@ namespace Server.Engines.Reports
 			}
 
 			html.RenderBeginTag( HtmlTag.Center );
-			TimeZone tz = TimeZone.CurrentTimeZone;
+			TimeZoneInfo tz = TimeZoneInfo.Local;
 			bool isDaylight = tz.IsDaylightSavingTime( m_TimeStamp );
 			TimeSpan utcOffset = tz.GetUtcOffset( m_TimeStamp );
 
@@ -252,7 +250,7 @@ namespace Server.Engines.Reports
 
 			html.Write( "<br>" );
 
-			TimeZone tz = TimeZone.CurrentTimeZone;
+			TimeZoneInfo tz = TimeZoneInfo.Local;
 			bool isDaylight = tz.IsDaylightSavingTime( m_TimeStamp );
 			TimeSpan utcOffset = tz.GetUtcOffset( m_TimeStamp );
 

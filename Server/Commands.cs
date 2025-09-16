@@ -167,7 +167,7 @@ namespace Server.Commands
 			m_AccessLevel = accessLevel;
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			if ( obj == this )
 				return 0;

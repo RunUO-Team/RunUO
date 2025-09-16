@@ -232,7 +232,7 @@ namespace Server
 			}
 		}
 
-		public int CompareTo( object obj )
+		public int CompareTo( object? obj )
 		{
 			if ( obj == null )
 				return 1;
@@ -267,7 +267,7 @@ namespace Server
 			return Object.ReferenceEquals( x, null );
 		}
 
-		public int Compare( object x, object y )
+		public int Compare( object? x, object? y )
 		{
 			if ( IsNull( x ) && IsNull( y ) )
 				return 0;

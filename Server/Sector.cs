@@ -41,7 +41,7 @@ namespace Server {
 			return m_Rect.Contains( loc );
 		}
 
-		int IComparable.CompareTo( object obj ) {
+		int IComparable.CompareTo( object? obj ) {
 			if ( obj == null )
 				return 1;
 

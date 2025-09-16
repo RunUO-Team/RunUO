@@ -275,7 +275,7 @@ namespace Server.Items
 				m_Grouper = grouper;
 			}
 
-			public int Compare( object x, object y )
+			public int Compare( object? x, object? y )
 			{
 				Item a = (Item)x;
 				Item b = (Item)y;
@@ -1783,7 +1783,7 @@ namespace Server.Items
 
 									if ( m_Table.ContainsKey( id ) )
 									{
-										Console.WriteLine( @"Warning: double ItemID entry in Data\containers.cfg" );
+										Console.WriteLine( "Warning: double ItemID entry in Data/containers.cfg" );
 									}
 									else
 									{

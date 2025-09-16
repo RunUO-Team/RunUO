@@ -157,7 +157,7 @@ namespace Server.Gumps
 
 		private class TypeNameComparer : IComparer<Type>
 		{
-			public int Compare( Type x, Type y )
+			public int Compare( Type? x, Type? y )
 			{
 				return x.Name.CompareTo( y.Name );
 			}

@@ -3349,6 +3349,7 @@ namespace Server.Network
 			List<Item> eq = beheld.Items;
 			int count = eq.Count;
 
+
 			if( beheld.HairItemID > 0 )
 				count++;
 			if( beheld.FacialHairItemID > 0 )
@@ -3386,18 +3387,12 @@ namespace Server.Network
 					if ( beheld.SolidHueOverride >= 0 )
 						hue = beheld.SolidHueOverride;
 
-					int itemID = item.ItemID & 0x7FFF;
-					bool writeHue = ( hue != 0 );
-
-					if ( writeHue )
-						itemID |= 0x8000;
+					int itemID = item.ItemID & 0xFFFF;
 
 					m_Stream.Write( (int) item.Serial );
 					m_Stream.Write( (ushort) itemID );
 					m_Stream.Write( (byte) layer );
-
-					if ( writeHue )
-						m_Stream.Write( (short) hue );
+					m_Stream.Write( (short) hue );
 				}
 			}
 
@@ -3411,19 +3406,12 @@ namespace Server.Network
 					if( beheld.SolidHueOverride >= 0 )
 						hue = beheld.SolidHueOverride;
 
-					int itemID = beheld.HairItemID & 0x7FFF;
-
-					bool writeHue = (hue != 0);
-
-					if( writeHue )
-						itemID |= 0x8000;
+					int itemID = beheld.HairItemID & 0xFFFF;
 
 					m_Stream.Write( (int)HairInfo.FakeSerial( beheld ) );
 					m_Stream.Write( (ushort)itemID );
 					m_Stream.Write( (byte)Layer.Hair );
-
-					if( writeHue )
-						m_Stream.Write( (short)hue );
+					m_Stream.Write( (short)hue );
 				}
 			}
 
@@ -3437,19 +3425,12 @@ namespace Server.Network
 					if( beheld.SolidHueOverride >= 0 )
 						hue = beheld.SolidHueOverride;
 
-					int itemID = beheld.FacialHairItemID & 0x7FFF;
-
-					bool writeHue = (hue != 0);
-
-					if( writeHue )
-						itemID |= 0x8000;
+					int itemID = beheld.FacialHairItemID & 0xFFFF;
 
 					m_Stream.Write( (int)FacialHairInfo.FakeSerial( beheld ) );
 					m_Stream.Write( (ushort)itemID );
 					m_Stream.Write( (byte)Layer.FacialHair );
-
-					if( writeHue )
-						m_Stream.Write( (short)hue );
+					m_Stream.Write( (short)hue );
 				}
 			}
 
@@ -3510,18 +3491,12 @@ namespace Server.Network
 					if ( beheld.SolidHueOverride >= 0 )
 						hue = beheld.SolidHueOverride;
 
-					int itemID = item.ItemID & 0x7FFF;
-					bool writeHue = ( hue != 0 );
-
-					if ( writeHue )
-						itemID |= 0x8000;
+					int itemID = item.ItemID & 0xFFFF;
 
 					m_Stream.Write( (int) item.Serial );
 					m_Stream.Write( (ushort) itemID );
 					m_Stream.Write( (byte) layer );
-
-					if ( writeHue )
-						m_Stream.Write( (short) hue );
+					m_Stream.Write( (short) hue );
 				}
 			}
 
@@ -3535,19 +3510,12 @@ namespace Server.Network
 					if( beheld.SolidHueOverride >= 0 )
 						hue = beheld.SolidHueOverride;
 
-					int itemID = beheld.HairItemID & 0x7FFF;
-
-					bool writeHue = (hue != 0);
-
-					if( writeHue )
-						itemID |= 0x8000;
+					int itemID = beheld.HairItemID & 0xFFFF;
 
 					m_Stream.Write( (int)HairInfo.FakeSerial( beheld ) );
 					m_Stream.Write( (ushort)itemID );
 					m_Stream.Write( (byte)Layer.Hair );
-
-					if( writeHue )
-						m_Stream.Write( (short)hue );
+					m_Stream.Write( (short)hue );
 				}
 			}
 
@@ -3561,19 +3529,12 @@ namespace Server.Network
 					if( beheld.SolidHueOverride >= 0 )
 						hue = beheld.SolidHueOverride;
 
-					int itemID = beheld.FacialHairItemID & 0x7FFF;
-
-					bool writeHue = (hue != 0);
-
-					if( writeHue )
-						itemID |= 0x8000;
+					int itemID = beheld.FacialHairItemID & 0xFFFF;
 
 					m_Stream.Write( (int)FacialHairInfo.FakeSerial( beheld ) );
 					m_Stream.Write( (ushort)itemID );
 					m_Stream.Write( (byte)Layer.FacialHair );
-
-					if( writeHue )
-						m_Stream.Write( (short)hue );
+					m_Stream.Write( (short)hue );
 				}
 			}
 
@@ -4028,7 +3989,7 @@ namespace Server.Network
 			if ( disabled != 0 )
 			{
 				if ( m_MD5Provider == null )
-					m_MD5Provider = new System.Security.Cryptography.MD5CryptoServiceProvider();
+					m_MD5Provider = System.Security.Cryptography.MD5.Create();
 
 				m_Stream.UnderlyingStream.Flush();
 
@@ -4052,7 +4013,7 @@ namespace Server.Network
 			}
 		}
 
-		private static System.Security.Cryptography.MD5CryptoServiceProvider m_MD5Provider;
+		private static System.Security.Cryptography.MD5 m_MD5Provider;
 
 		private static CharacterListFlags m_AdditionalFlags;
 
@@ -4121,7 +4082,7 @@ namespace Server.Network
 			if ( disabled != 0 )
 			{
 				if ( m_MD5Provider == null )
-					m_MD5Provider = new System.Security.Cryptography.MD5CryptoServiceProvider();
+					m_MD5Provider = System.Security.Cryptography.MD5.Create();
 
 				m_Stream.UnderlyingStream.Flush();
 
@@ -4145,7 +4106,7 @@ namespace Server.Network
 			}
 		}
 
-		private static System.Security.Cryptography.MD5CryptoServiceProvider m_MD5Provider;
+		private static System.Security.Cryptography.MD5 m_MD5Provider;
 	}
 
 	public sealed class ClearWeaponAbility : Packet
@@ -4266,11 +4227,11 @@ namespace Server.Network
 			}
 		}
 
-		public ServerInfo( string name, int fullPercent, TimeZone tz, IPEndPoint address )
+		public ServerInfo( string name, int fullPercent, TimeZoneInfo tz, IPEndPoint address )
 		{
 			m_Name = name;
 			m_FullPercent = fullPercent;
-			m_TimeZone = tz.GetUtcOffset( DateTime.Now ).Hours;
+			m_TimeZone = (int)tz.GetUtcOffset( DateTime.Now ).TotalHours;
 			m_Address = address;
 		}
 	}

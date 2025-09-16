@@ -39,9 +39,10 @@ namespace Server
 		{
 			m_Bounds = new Rectangle2D[TileData.ItemTable.Length];
 
-			if ( File.Exists( "Data/Binary/Bounds.bin" ) )
+			string boundsPath = Path.Combine( Core.BaseDirectory, "Data", "Binary", "Bounds.bin" );
+			if ( File.Exists( boundsPath ) )
 			{
-				using ( FileStream fs = new FileStream( "Data/Binary/Bounds.bin", FileMode.Open, FileAccess.Read, FileShare.Read ) )
+				using ( FileStream fs = new FileStream( boundsPath, FileMode.Open, FileAccess.Read, FileShare.Read ) )
 				{
 					BinaryReader bin = new BinaryReader( fs );
 

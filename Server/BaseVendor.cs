@@ -30,7 +30,7 @@ namespace Server.Mobiles
 {
 	public class BuyItemStateComparer : IComparer<BuyItemState>
 	{
-		public int Compare( BuyItemState l, BuyItemState r )
+		public int Compare( BuyItemState? l, BuyItemState? r )
 		{
 			if ( l == null && r == null ) return 0;
 			if ( l == null ) return -1;

@@ -11,7 +11,6 @@ namespace Server
 	{
 		private string m_AssemblyName;
 
-		private AppDomain m_AppDomain;
 		private AssemblyBuilder m_AssemblyBuilder;
 		private ModuleBuilder m_ModuleBuilder;
 
@@ -19,28 +18,13 @@ namespace Server
 		{
 			m_AssemblyName = assemblyName;
 
-			m_AppDomain = AppDomain.CurrentDomain;
-
-			m_AssemblyBuilder = m_AppDomain.DefineDynamicAssembly(
+			// Modern .NET 8 way to create dynamic assemblies
+			m_AssemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(
 				new AssemblyName( assemblyName ),
-				canSave ? AssemblyBuilderAccess.RunAndSave : AssemblyBuilderAccess.Run
+				AssemblyBuilderAccess.Run // .NET 8 only supports Run mode
 			);
 
-			if ( canSave )
-			{
-				m_ModuleBuilder = m_AssemblyBuilder.DefineDynamicModule(
-					assemblyName,
-					String.Format( "{0}.dll", assemblyName.ToLower() ),
-					false
-				);
-			}
-			else
-			{
-				m_ModuleBuilder = m_AssemblyBuilder.DefineDynamicModule(
-					assemblyName,
-					false
-				);
-			}
+			m_ModuleBuilder = m_AssemblyBuilder.DefineDynamicModule( assemblyName );
 		}
 
 		public TypeBuilder DefineType( string typeName, TypeAttributes attrs, Type parentType )
@@ -50,9 +34,9 @@ namespace Server
 
 		public void Save()
 		{
-			m_AssemblyBuilder.Save(
-				String.Format( "{0}.dll", m_AssemblyName.ToLower() )
-			);
+			// Save functionality is not supported in .NET 8
+			// This is a no-op for compatibility
+			Console.WriteLine("Warning: Assembly saving is not supported in .NET 8, dynamic assemblies remain in memory only.");
 		}
 	}
 
@@ -495,14 +479,13 @@ namespace Server
 
 		public delegate void Callback();
 
-#if MONO
 		private static bool GenericComparator( Type type, object obj )
 		{
+			Type active = obj as Type;
 			return ( type.IsGenericType )
 				&& ( type.GetGenericTypeDefinition() == typeof( IComparable<> ) )
-				&& ( type.GetGenericArguments()[0].IsAssignableFrom(obj as Type) );
+				&& ( type.GetGenericArguments()[0].IsAssignableFrom( active ) );
 		}
-#endif
 
 		public bool CompareTo( int sign, Callback argGenerator )
 		{
@@ -535,16 +518,7 @@ namespace Server
 				 * Bleh.
 				 */
 
-#if MONO
 				Type[] ifaces = active.FindInterfaces( GenericComparator, active );
-#else
-				Type[] ifaces = active.FindInterfaces( delegate( Type type, object obj )
-				{
-					return ( type.IsGenericType )
-						&& ( type.GetGenericTypeDefinition() == typeof( IComparable<> ) )
-						&& ( type.GetGenericArguments()[0].IsAssignableFrom( active ) );
-				}, null );
-#endif
 
 				if ( ifaces.Length > 0 )
 				{

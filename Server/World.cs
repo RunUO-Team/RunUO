@@ -316,7 +316,7 @@ namespace Server {
 						Console.WriteLine("Error: Type '{0}' was not found.", typeName);
 					}
 
-					throw new Exception(String.Format("Bad type '{0}'", typeName));
+					throw new InvalidOperationException($"Bad type '{typeName}'");
 				}
 
 				ConstructorInfo ctor = t.GetConstructor(m_SerialTypeArray);
@@ -327,7 +327,7 @@ namespace Server {
 				}
 				else
 				{
-					throw new Exception(String.Format("Type '{0}' does not have a serialization constructor", t));
+					throw new InvalidOperationException($"Type '{t}' does not have a serialization constructor");
 				}
 			}
 
@@ -360,10 +360,10 @@ namespace Server {
 
 			if ( File.Exists( MobileIndexPath ) && File.Exists( MobileTypesPath ) ) {
 				using ( FileStream idx = new FileStream( MobileIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-					BinaryReader idxReader = new BinaryReader( idx );
+					using ( BinaryReader idxReader = new BinaryReader( idx ) ) {
 
 					using ( FileStream tdb = new FileStream( MobileTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-						BinaryReader tdbReader = new BinaryReader( tdb );
+						using ( BinaryReader tdbReader = new BinaryReader( tdb ) ) {
 
 						List<Tuple<ConstructorInfo, string>> types = ReadTypes( tdbReader );
 
@@ -398,10 +398,10 @@ namespace Server {
 							}
 						}
 
-						tdbReader.Close();
+						}
 					}
 
-					idxReader.Close();
+					}
 				}
 			} else {
 				m_Mobiles = new Dictionary<Serial, Mobile>();
@@ -409,10 +409,10 @@ namespace Server {
 
 			if ( File.Exists( ItemIndexPath ) && File.Exists( ItemTypesPath ) ) {
 				using ( FileStream idx = new FileStream( ItemIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-					BinaryReader idxReader = new BinaryReader( idx );
+					using ( BinaryReader idxReader = new BinaryReader( idx ) ) {
 
 					using ( FileStream tdb = new FileStream( ItemTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-						BinaryReader tdbReader = new BinaryReader( tdb );
+						using ( BinaryReader tdbReader = new BinaryReader( tdb ) ) {
 
 						List<Tuple<ConstructorInfo, string>> types = ReadTypes( tdbReader );
 
@@ -447,10 +447,10 @@ namespace Server {
 							}
 						}
 
-						tdbReader.Close();
+						}
 					}
 
-					idxReader.Close();
+					}
 				}
 			} else {
 				m_Items = new Dictionary<Serial, Item>();
@@ -458,7 +458,7 @@ namespace Server {
 
 			if ( File.Exists( GuildIndexPath ) ) {
 				using ( FileStream idx = new FileStream( GuildIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-					BinaryReader idxReader = new BinaryReader( idx );
+					using ( BinaryReader idxReader = new BinaryReader( idx ) ) {
 
 					guildCount = idxReader.ReadInt32();
 
@@ -475,7 +475,7 @@ namespace Server {
 							guilds.Add( new GuildEntry( guild, pos, length ) );
 					}
 
-					idxReader.Close();
+					}
 				}
 			}
 
@@ -501,7 +501,7 @@ namespace Server {
 								m.Deserialize( reader );
 
 								if ( reader.Position != ( entry.Position + entry.Length ) )
-									throw new Exception( String.Format( "***** Bad serialize on {0} *****", m.GetType() ) );
+									throw new InvalidOperationException( $"***** Bad serialize on {m.GetType()} *****" );
 							} catch ( Exception e ) {
 								mobiles.RemoveAt( i );
 
@@ -536,7 +536,7 @@ namespace Server {
 								item.Deserialize( reader );
 
 								if ( reader.Position != ( entry.Position + entry.Length ) )
-									throw new Exception( String.Format( "***** Bad serialize on {0} *****", item.GetType() ) );
+									throw new InvalidOperationException( $"***** Bad serialize on {item.GetType()} *****" );
 							} catch ( Exception e ) {
 								items.RemoveAt( i );
 
@@ -572,7 +572,7 @@ namespace Server {
 								g.Deserialize( reader );
 
 								if ( reader.Position != ( entry.Position + entry.Length ) )
-									throw new Exception( String.Format( "***** Bad serialize on Guild {0} *****", g.Id ) );
+									throw new InvalidOperationException( $"***** Bad serialize on Guild {g.Id} *****" );
 							} catch ( Exception e ) {
 								guilds.RemoveAt( i );
 
@@ -634,7 +634,7 @@ namespace Server {
 					Console.WriteLine( "An exception will be thrown and the server will terminate." );
 				}
 
-				throw new Exception( String.Format( "Load failed (items={0}, mobiles={1}, guilds={2}, type={3}, serial={4})", failedItems, failedMobiles, failedGuilds, failedType, failedSerial ), failed );
+				throw new InvalidOperationException( $"Load failed (items={failedItems}, mobiles={failedMobiles}, guilds={failedGuilds}, type={failedType}, serial={failedSerial})", failed );
 			}
 
 			EventSink.InvokeWorldLoad();
@@ -696,7 +696,7 @@ namespace Server {
 						Console.WriteLine("Error: Type '{0}' was not found.", typeName);
 					}
 
-					throw new Exception(String.Format("Bad type '{0}'", typeName));
+					throw new InvalidOperationException($"Bad type '{typeName}'");
 				}
 
 				ConstructorInfo ctor = t.GetConstructor(m_SerialTypeArray);
@@ -707,7 +707,7 @@ namespace Server {
 				}
 				else
 				{
-					throw new Exception(String.Format("Type '{0}' does not have a serialization constructor", t));
+					throw new InvalidOperationException($"Type '{t}' does not have a serialization constructor");
 				}
 			}
 
@@ -740,10 +740,10 @@ namespace Server {
 
 			if ( File.Exists( MobileIndexPath ) && File.Exists( MobileTypesPath ) ) {
 				using ( FileStream idx = new FileStream( MobileIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-					BinaryReader idxReader = new BinaryReader( idx );
+					using ( BinaryReader idxReader = new BinaryReader( idx ) ) {
 
 					using ( FileStream tdb = new FileStream( MobileTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-						BinaryReader tdbReader = new BinaryReader( tdb );
+						using ( BinaryReader tdbReader = new BinaryReader( tdb ) ) {
 
 						List<object[]> types = ReadTypes( tdbReader );
 
@@ -778,10 +778,10 @@ namespace Server {
 							}
 						}
 
-						tdbReader.Close();
+						}
 					}
 
-					idxReader.Close();
+					}
 				}
 			} else {
 				m_Mobiles = new Dictionary<Serial, Mobile>();
@@ -789,10 +789,10 @@ namespace Server {
 
 			if ( File.Exists( ItemIndexPath ) && File.Exists( ItemTypesPath ) ) {
 				using ( FileStream idx = new FileStream( ItemIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-					BinaryReader idxReader = new BinaryReader( idx );
+					using ( BinaryReader idxReader = new BinaryReader( idx ) ) {
 
 					using ( FileStream tdb = new FileStream( ItemTypesPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-						BinaryReader tdbReader = new BinaryReader( tdb );
+						using ( BinaryReader tdbReader = new BinaryReader( tdb ) ) {
 
 						List<object[]> types = ReadTypes( tdbReader );
 
@@ -827,10 +827,10 @@ namespace Server {
 							}
 						}
 
-						tdbReader.Close();
+						}
 					}
 
-					idxReader.Close();
+					}
 				}
 			} else {
 				m_Items = new Dictionary<Serial, Item>();
@@ -838,7 +838,7 @@ namespace Server {
 
 			if ( File.Exists( GuildIndexPath ) ) {
 				using ( FileStream idx = new FileStream( GuildIndexPath, FileMode.Open, FileAccess.Read, FileShare.Read ) ) {
-					BinaryReader idxReader = new BinaryReader( idx );
+					using ( BinaryReader idxReader = new BinaryReader( idx ) ) {
 
 					guildCount = idxReader.ReadInt32();
 
@@ -855,7 +855,7 @@ namespace Server {
 							guilds.Add( new GuildEntry( guild, pos, length ) );
 					}
 
-					idxReader.Close();
+					}
 				}
 			}
 
@@ -881,7 +881,7 @@ namespace Server {
 								m.Deserialize( reader );
 
 								if ( reader.Position != ( entry.Position + entry.Length ) )
-									throw new Exception( String.Format( "***** Bad serialize on {0} *****", m.GetType() ) );
+									throw new InvalidOperationException( $"***** Bad serialize on {m.GetType()} *****" );
 							} catch ( Exception e ) {
 								mobiles.RemoveAt( i );
 
@@ -916,7 +916,7 @@ namespace Server {
 								item.Deserialize( reader );
 
 								if ( reader.Position != ( entry.Position + entry.Length ) )
-									throw new Exception( String.Format( "***** Bad serialize on {0} *****", item.GetType() ) );
+									throw new InvalidOperationException( $"***** Bad serialize on {item.GetType()} *****" );
 							} catch ( Exception e ) {
 								items.RemoveAt( i );
 
@@ -952,7 +952,7 @@ namespace Server {
 								g.Deserialize( reader );
 
 								if ( reader.Position != ( entry.Position + entry.Length ) )
-									throw new Exception( String.Format( "***** Bad serialize on Guild {0} *****", g.Id ) );
+									throw new InvalidOperationException( $"***** Bad serialize on Guild {g.Id} *****" );
 							} catch ( Exception e ) {
 								guilds.RemoveAt( i );
 
@@ -1014,7 +1014,7 @@ namespace Server {
 					Console.WriteLine( "An exception will be thrown and the server will terminate." );
 				}
 
-				throw new Exception( String.Format( "Load failed (items={0}, mobiles={1}, guilds={2}, type={3}, serial={4})", failedItems, failedMobiles, failedGuilds, failedType, failedSerial ), failed );
+				throw new InvalidOperationException( $"Load failed (items={failedItems}, mobiles={failedMobiles}, guilds={failedGuilds}, type={failedType}, serial={failedSerial})", failed );
 			}
 
 			EventSink.InvokeWorldLoad();

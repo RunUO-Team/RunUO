@@ -809,7 +809,7 @@ namespace Server.Engines.ConPVP
 			return m_Arenas[offset];
 		}
 
-		public int CompareTo(object obj)
+		public int CompareTo(object? obj)
 		{
 			Arena c = (Arena)obj;
 

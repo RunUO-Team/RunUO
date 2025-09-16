@@ -1449,8 +1449,8 @@ namespace Server.Commands
 			if( File.Exists( path ) )
 			{
 				using( FileStream ip = new FileStream( path, FileMode.Open, FileAccess.Read, FileShare.Read ) )
+				using( BinaryReader bin = new BinaryReader( ip ) )
 				{
-					BinaryReader bin = new BinaryReader( ip );
 
 					while( bin.PeekChar() >= 0 )
 					{
