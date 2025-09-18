@@ -1391,12 +1391,12 @@ namespace Server
 
 							if ( tiles.Length > 0 )
 							{
-								// TODO: How to avoid this copy?
+								// Optimized copy with Z adjustment
 								StaticTile[] copy = new StaticTile[tiles.Length];
+								Array.Copy(tiles, copy, tiles.Length);
 
 								for ( int i = 0; i < copy.Length; ++i )
 								{
-									copy[i] = tiles[i];
 									copy[i].Z += m.Z;
 								}
 

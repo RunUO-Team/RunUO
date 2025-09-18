@@ -64,7 +64,7 @@ namespace Server {
 		{
 			if( m_DiskWriteHandle.Set())
 			{
-				Console.WriteLine("Closing Save Files. ");
+				Utility.WriteConsoleLine("Closing Save Files. ");
 			}
 		}
 
@@ -296,24 +296,24 @@ namespace Server {
 
 				if (t == null)
 				{
-					Console.WriteLine("failed");
+					Utility.WriteConsoleColor(ConsoleColor.Red, "failed");
 
 					if (!Core.Service)
 					{
-						Console.WriteLine("Error: Type '{0}' was not found. Delete all of those types? (y/n)", typeName);
+						Utility.WriteConsoleColor(ConsoleColor.Red, "Error: Type '{0}' was not found. Delete all of those types? (y/n)", typeName);
 
 						if (Console.ReadKey(true).Key == ConsoleKey.Y)
 						{
 							types.Add(null);
-							Console.Write("World: Loading...");
+							Utility.WriteConsole("World: Loading...");
 							continue;
 						}
 
-						Console.WriteLine("Types will not be deleted. An exception will be thrown.");
+						Utility.WriteConsoleColor(ConsoleColor.Red, "Types will not be deleted. An exception will be thrown.");
 					}
 					else
 					{
-						Console.WriteLine("Error: Type '{0}' was not found.", typeName);
+						Utility.WriteConsoleColor(ConsoleColor.Red, "Error: Type '{0}' was not found.", typeName);
 					}
 
 					throw new InvalidOperationException($"Bad type '{typeName}'");
@@ -341,7 +341,7 @@ namespace Server {
 			m_Loaded = true;
 			m_LoadingType = null;
 
-			Console.Write( "World: Loading..." );
+			Utility.WriteConsole( "World: Loading..." );
 
 			Stopwatch watch = Stopwatch.StartNew();
 
@@ -592,17 +592,17 @@ namespace Server {
 			}
 
 			if ( failedItems || failedMobiles || failedGuilds ) {
-				Console.WriteLine( "An error was encountered while loading a saved object" );
+				Utility.WriteConsoleColor(ConsoleColor.Red, "An error was encountered while loading a saved object" );
 
-				Console.WriteLine( " - Type: {0}", failedType );
-				Console.WriteLine( " - Serial: {0}", failedSerial );
+				Utility.WriteConsoleColor(ConsoleColor.Red, " - Type: {0}", failedType );
+				Utility.WriteConsoleColor(ConsoleColor.Red, " - Serial: {0}", failedSerial );
 
 				if ( !Core.Service ) {
-					Console.WriteLine( "Delete the object? (y/n)" );
+					Utility.WriteConsoleColor(ConsoleColor.Yellow, "Delete the object? (y/n)" );
 
 					if ( Console.ReadKey( true ).Key == ConsoleKey.Y ) {
 						if ( failedType != typeof( BaseGuild ) ) {
-							Console.WriteLine( "Delete all objects of that type? (y/n)" );
+							Utility.WriteConsoleColor(ConsoleColor.Yellow, "Delete all objects of that type? (y/n)" );
 
 							if ( Console.ReadKey( true ).Key == ConsoleKey.Y ) {
 								if ( failedMobiles ) {
@@ -628,10 +628,10 @@ namespace Server {
 						SaveIndex<GuildEntry>( guilds, GuildIndexPath );
 					}
 
-					Console.WriteLine( "After pressing return an exception will be thrown and the server will terminate." );
+					Utility.WriteConsoleColor(ConsoleColor.Red, "After pressing return an exception will be thrown and the server will terminate." );
 					Console.ReadLine();
 				} else {
-					Console.WriteLine( "An exception will be thrown and the server will terminate." );
+					Utility.WriteConsoleColor(ConsoleColor.Red, "An exception will be thrown and the server will terminate." );
 				}
 
 				throw new InvalidOperationException( $"Load failed (items={failedItems}, mobiles={failedMobiles}, guilds={failedGuilds}, type={failedType}, serial={failedSerial})", failed );
@@ -659,7 +659,7 @@ namespace Server {
 
 			watch.Stop();
 
-			Console.WriteLine( "done ({1} items, {2} mobiles) ({0:F2} seconds)", watch.Elapsed.TotalSeconds, m_Items.Count, m_Mobiles.Count );
+			Utility.WriteConsoleColor(ConsoleColor.Green, "done ({1} items, {2} mobiles) ({0:F2} seconds)", watch.Elapsed.TotalSeconds, m_Items.Count, m_Mobiles.Count );
 		}
 #else
 		private static List<object[]> ReadTypes( BinaryReader tdbReader )
@@ -676,24 +676,24 @@ namespace Server {
 
 				if (t == null)
 				{
-					Console.WriteLine("failed");
+					Utility.WriteConsoleColor(ConsoleColor.Red, "failed");
 
 					if (!Core.Service)
 					{
-						Console.WriteLine("Error: Type '{0}' was not found. Delete all of those types? (y/n)", typeName);
+						Utility.WriteConsoleColor(ConsoleColor.Red, "Error: Type '{0}' was not found. Delete all of those types? (y/n)", typeName);
 
 						if (Console.ReadKey(true).Key == ConsoleKey.Y)
 						{
 							types.Add(null);
-							Console.Write("World: Loading...");
+							Utility.WriteConsole("World: Loading...");
 							continue;
 						}
 
-						Console.WriteLine("Types will not be deleted. An exception will be thrown.");
+						Utility.WriteConsoleColor(ConsoleColor.Red, "Types will not be deleted. An exception will be thrown.");
 					}
 					else
 					{
-						Console.WriteLine("Error: Type '{0}' was not found.", typeName);
+						Utility.WriteConsoleColor(ConsoleColor.Red, "Error: Type '{0}' was not found.", typeName);
 					}
 
 					throw new InvalidOperationException($"Bad type '{typeName}'");
@@ -721,7 +721,7 @@ namespace Server {
 			m_Loaded = true;
 			m_LoadingType = null;
 
-			Console.Write( "World: Loading..." );
+			Utility.WriteConsole( "World: Loading..." );
 
 			Stopwatch watch = Stopwatch.StartNew();
 
@@ -972,17 +972,17 @@ namespace Server {
 			}
 
 			if ( failedItems || failedMobiles || failedGuilds ) {
-				Console.WriteLine( "An error was encountered while loading a saved object" );
+				Utility.WriteConsoleColor(ConsoleColor.Red, "An error was encountered while loading a saved object" );
 
-				Console.WriteLine( " - Type: {0}", failedType );
-				Console.WriteLine( " - Serial: {0}", failedSerial );
+				Utility.WriteConsoleColor(ConsoleColor.Red, " - Type: {0}", failedType );
+				Utility.WriteConsoleColor(ConsoleColor.Red, " - Serial: {0}", failedSerial );
 
 				if ( !Core.Service ) {
-					Console.WriteLine( "Delete the object? (y/n)" );
+					Utility.WriteConsoleColor(ConsoleColor.Yellow, "Delete the object? (y/n)" );
 
 					if ( Console.ReadKey( true ).Key == ConsoleKey.Y ) {
 						if ( failedType != typeof( BaseGuild ) ) {
-							Console.WriteLine( "Delete all objects of that type? (y/n)" );
+							Utility.WriteConsoleColor(ConsoleColor.Yellow, "Delete all objects of that type? (y/n)" );
 
 							if ( Console.ReadKey( true ).Key == ConsoleKey.Y ) {
 								if ( failedMobiles ) {
@@ -1008,10 +1008,10 @@ namespace Server {
 						SaveIndex<GuildEntry>( guilds, GuildIndexPath );
 					}
 
-					Console.WriteLine( "After pressing return an exception will be thrown and the server will terminate." );
+					Utility.WriteConsoleColor(ConsoleColor.Red, "After pressing return an exception will be thrown and the server will terminate." );
 					Console.ReadLine();
 				} else {
-					Console.WriteLine( "An exception will be thrown and the server will terminate." );
+					Utility.WriteConsoleColor(ConsoleColor.Red, "An exception will be thrown and the server will terminate." );
 				}
 
 				throw new InvalidOperationException( $"Load failed (items={failedItems}, mobiles={failedMobiles}, guilds={failedGuilds}, type={failedType}, serial={failedSerial})", failed );
@@ -1039,7 +1039,7 @@ namespace Server {
 
 			watch.Stop();
 
-			Console.WriteLine( "done ({1} items, {2} mobiles) ({0:F2} seconds)", watch.Elapsed.TotalSeconds, m_Items.Count, m_Mobiles.Count );
+			Utility.WriteConsoleColor(ConsoleColor.Green, "done ({1} items, {2} mobiles) ({0:F2} seconds)", watch.Elapsed.TotalSeconds, m_Items.Count, m_Mobiles.Count );
 		}
 #endif
 
@@ -1085,7 +1085,7 @@ namespace Server {
 				action, entity
 			);
 
-			Console.WriteLine( message );
+			Utility.WriteConsoleLine( message );
 
 			try {
 				using ( StreamWriter op = new StreamWriter( "world-save-errors.log", true ) ) {
@@ -1150,9 +1150,9 @@ namespace Server {
 				Broadcast( 0x35, true, "The world is saving, please wait." );
 
 			SaveStrategy strategy = SaveStrategy.Acquire();
-			Console.WriteLine( "Core: Using {0} save strategy", strategy.Name.ToLowerInvariant() );
+			Utility.WriteConsoleLine( "Core: Using {0} save strategy", strategy.Name.ToLowerInvariant() );
 
-			Console.Write( "World: Saving..." );
+			Utility.WriteConsole( "World: Saving..." );
 
 			Stopwatch watch = Stopwatch.StartNew();
 
@@ -1185,7 +1185,7 @@ namespace Server {
 
 			strategy.ProcessDecay();
 
-			Console.WriteLine( "Save done in {0:F2} seconds.", watch.Elapsed.TotalSeconds );
+			Utility.WriteConsoleColor(ConsoleColor.Green, "Save done in {0:F2} seconds.", watch.Elapsed.TotalSeconds );
 
 			if ( message )
 				Broadcast( 0x35, true, "World save complete. The entire process took {0:F1} seconds.", watch.Elapsed.TotalSeconds );

@@ -37,6 +37,38 @@ namespace Server
 		private static Random m_Random = new Random();
 		private static Encoding m_UTF8, m_UTF8WithEncoding;
 
+		// Console output methods for centralized logging
+		public static void WriteConsole(string text)
+		{
+			Console.Write(text);
+		}
+
+		public static void WriteConsoleLine(string text)
+		{
+			Console.WriteLine(text);
+		}
+
+		public static void WriteConsoleLine(string format, params object[] args)
+		{
+			Console.WriteLine(format, args);
+		}
+
+		public static void WriteConsoleColor(ConsoleColor color, string text)
+		{
+			var oldColor = Console.ForegroundColor;
+			Console.ForegroundColor = color;
+			Console.WriteLine(text);
+			Console.ForegroundColor = oldColor;
+		}
+
+		public static void WriteConsoleColor(ConsoleColor color, string format, params object[] args)
+		{
+			var oldColor = Console.ForegroundColor;
+			Console.ForegroundColor = color;
+			Console.WriteLine(format, args);
+			Console.ForegroundColor = oldColor;
+		}
+
 		public static Encoding UTF8
 		{
 			get
@@ -145,6 +177,20 @@ namespace Server
 			return sb.ToString();
 		}
 
+		private static void ProcessDigit(ref int cidrLength, ref int part, bool cidrBits, int partBase, int offset)
+		{
+			if (cidrBits)
+			{
+				cidrLength *= partBase;
+				cidrLength += offset;
+			}
+			else
+			{
+				part *= partBase;
+				part += offset;
+			}
+		}
+
 		public static bool IPMatchCIDR( string cidr, IPAddress ip )
 		{
 			if ( ip == null || ip.AddressFamily == AddressFamily.InterNetworkV6 )
@@ -209,47 +255,17 @@ namespace Server
 					else if ( c >= '0' && c <= '9' )
 					{
 						int offset = c - '0';
-
-						if ( cidrBits )
-						{
-							cidrLength *= partBase;
-							cidrLength += offset;
-						}
-						else
-						{
-							part *= partBase;
-							part += offset;
-						}
+						ProcessDigit(ref cidrLength, ref part, cidrBits, partBase, offset);
 					}
 					else if ( c >= 'a' && c <= 'f' )
 					{
 						int offset = 10 + ( c - 'a' );
-
-						if ( cidrBits )
-						{
-							cidrLength *= partBase;
-							cidrLength += offset;
-						}
-						else
-						{
-							part *= partBase;
-							part += offset;
-						}
+						ProcessDigit(ref cidrLength, ref part, cidrBits, partBase, offset);
 					}
 					else if ( c >= 'A' && c <= 'F' )
 					{
 						int offset = 10 + ( c - 'A' );
-
-						if ( cidrBits )
-						{
-							cidrLength *= partBase;
-							cidrLength += offset;
-						}
-						else
-						{
-							part *= partBase;
-							part += offset;
-						}
+						ProcessDigit(ref cidrLength, ref part, cidrBits, partBase, offset);
 					}
 					else if ( c == '/' )
 					{

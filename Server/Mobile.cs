@@ -529,6 +529,10 @@ namespace Server
 
 		private static bool m_DragEffects = true;
 
+		// Localized message constants
+		public const int MSG_CANNOT_PERFORM_BENEFICIAL = 1001017; // You can not perform beneficial acts on your target.
+		public const int MSG_CANNOT_PERFORM_HARMFUL = 1001018; // You can not perform negative acts on your target.
+
 		public static bool DragEffects
 		{
 			get { return m_DragEffects; }
@@ -7023,7 +7027,7 @@ namespace Server
 			if( m_Deleted || target.m_Deleted || !Alive || IsDeadBondedPet || (!allowDead && (!target.Alive || target.IsDeadBondedPet)) )
 			{
 				if( message )
-					SendLocalizedMessage( 1001017 ); // You can not perform beneficial acts on your target.
+					SendLocalizedMessage( MSG_CANNOT_PERFORM_BENEFICIAL );
 
 				return false;
 			}
@@ -7031,16 +7035,19 @@ namespace Server
 			if( target == this )
 				return true;
 
-			if( /*m_Player &&*/ !Region.AllowBeneficial( this, target ) )
+			if( !Region.AllowBeneficial( this, target ) )
 			{
-				// TODO: Pets
-				//if ( !(target.m_Player || target.Body.IsHuman || target.Body.IsAnimal) )
-				//{
-				if( message )
-					SendLocalizedMessage( 1001017 ); // You can not perform beneficial acts on your target.
+				// Check if target is a pet, player, or other allowed entity
+				bool isAllowedTarget = target.Player || target.Body.IsHuman || target.Body.IsAnimal ||
+				                      (target is BaseCreature && ((BaseCreature)target).Controlled);
 
-				return false;
-				//}
+				if ( !isAllowedTarget )
+				{
+					if( message )
+						SendLocalizedMessage( MSG_CANNOT_PERFORM_BENEFICIAL );
+
+					return false;
+				}
 			}
 
 			return true;
@@ -7109,7 +7116,7 @@ namespace Server
 			if( m_Deleted || (!ignoreOurBlessedness && m_Blessed) || target.m_Deleted || target.m_Blessed || !Alive || IsDeadBondedPet || !target.Alive || target.IsDeadBondedPet )
 			{
 				if( message )
-					SendLocalizedMessage( 1001018 ); // You can not perform negative acts on your target.
+					SendLocalizedMessage( MSG_CANNOT_PERFORM_HARMFUL );
 
 				return false;
 			}
@@ -7117,11 +7124,11 @@ namespace Server
 			if( target == this )
 				return true;
 
-			// TODO: Pets
-			if( /*m_Player &&*/ !Region.AllowHarmful( this, target ) )//(target.m_Player || target.Body.IsHuman) && !Region.AllowHarmful( this, target )  )
+			// Check harmful actions against pets and other entities
+			if( !Region.AllowHarmful( this, target ) )
 			{
 				if( message )
-					SendLocalizedMessage( 1001018 ); // You can not perform negative acts on your target.
+					SendLocalizedMessage( MSG_CANNOT_PERFORM_HARMFUL );
 
 				return false;
 			}
