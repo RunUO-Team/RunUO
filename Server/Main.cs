@@ -248,8 +248,8 @@ namespace Server
 
 		private static void CurrentDomain_UnhandledException( object sender, UnhandledExceptionEventArgs e )
 		{
-			Console.WriteLine( e.IsTerminating ? "Error:" : "Warning:" );
-			Console.WriteLine( e.ExceptionObject );
+			Utility.WriteConsoleColor( ConsoleColor.Red, e.IsTerminating ? "Error:" : "Warning:" );
+			Utility.WriteConsoleColor( ConsoleColor.Red, e.ExceptionObject.ToString() );
 
 			if( e.IsTerminating )
 			{
@@ -282,7 +282,7 @@ namespace Server
 					{
 					}
 
-					Console.WriteLine( "This exception is fatal, press return to exit" );
+					Utility.WriteConsoleColor( ConsoleColor.Red, "This exception is fatal, press return to exit" );
 					Console.ReadLine();
 				}
 
@@ -370,7 +370,7 @@ namespace Server
 
 			m_Closing = true;
 
-			Console.Write( "Exiting..." );
+			Utility.WriteConsole( "Exiting..." );
 
 			World.WaitForWriteCompletion();
 
@@ -379,7 +379,7 @@ namespace Server
 
 			Timer.TimerThread.Set();
 
-			Console.WriteLine( "done" );
+			Utility.WriteConsoleLine( "done" );
 		}
 
 		private static AutoResetEvent m_Signal = new AutoResetEvent( true );
@@ -441,13 +441,13 @@ namespace Server
 			Version ver = m_Assembly.GetName().Version;
 
 			// Added to help future code support on forums, as a 'check' people can ask for to it see if they recompiled core or not
-			Console.WriteLine( "RunUO - [www.runuo.com] Version {0}.{1}, Build {2}.{3}", ver.Major, ver.Minor, ver.Build, ver.Revision );
-			Console.WriteLine( "Core: Running on .NET Framework Version {0}.{1}.{2}", Environment.Version.Major, Environment.Version.Minor, Environment.Version.Build );
+			Utility.WriteConsoleLine( "RunUO - [www.runuo.com] Version {0}.{1}, Build {2}.{3}", ver.Major, ver.Minor, ver.Build, ver.Revision );
+			Utility.WriteConsoleLine( "Core: Running on .NET Framework Version {0}.{1}.{2}", Environment.Version.Major, Environment.Version.Minor, Environment.Version.Build );
 
 			string s = Arguments;
 
 			if( s.Length > 0 )
-				Console.WriteLine( "Core: Running with arguments: {0}", s );
+				Utility.WriteConsoleLine( "Core: Running with arguments: {0}", s );
 
 			m_ProcessorCount = Environment.ProcessorCount;
 
@@ -455,11 +455,11 @@ namespace Server
 				m_MultiProcessor = true;
 
 			if( m_MultiProcessor || Is64Bit )
-				Console.WriteLine( "Core: Optimizing for {0} {2}processor{1}", m_ProcessorCount, m_ProcessorCount == 1 ? "" : "s", Is64Bit ? "64-bit " : "" );
+				Utility.WriteConsoleLine( "Core: Optimizing for {0} {2}processor{1}", m_ProcessorCount, m_ProcessorCount == 1 ? "" : "s", Is64Bit ? "64-bit " : "" );
 
 			if( Environment.OSVersion.Platform == PlatformID.Unix ) {
 				m_Unix = true;
-				Console.WriteLine( "Core: Unix environment detected" );
+				Utility.WriteConsoleLine( "Core: Unix environment detected" );
 			}
 			else {
 				m_ConsoleEventHandler = new ConsoleEventHandler( OnConsoleEvent );
@@ -467,10 +467,10 @@ namespace Server
 			}
 
 			if ( GCSettings.IsServerGC )
-				Console.WriteLine("Core: Server garbage collection mode enabled");
+				Utility.WriteConsoleLine("Core: Server garbage collection mode enabled");
 
 			// Scripts are now pre-compiled, no runtime compilation needed
-			Console.WriteLine( "Scripts: Using pre-compiled scripts from build." );
+			Utility.WriteConsoleLine( "Scripts: Using pre-compiled scripts from build." );
 
 			// Initialize assemblies array with current assembly for pre-compiled scripts
 			ScriptCompiler.Assemblies = new Assembly[] { Assembly.GetExecutingAssembly() };
@@ -649,12 +649,12 @@ namespace Server
 
 					if (warningSb != null && warningSb.Length > 0)
 					{
-						Console.WriteLine("Warning: {0}\n{1}", t, warningSb.ToString());
+						Utility.WriteConsoleColor(ConsoleColor.Yellow, "Warning: {0}\n{1}", t, warningSb.ToString());
 					}
 				}
 				catch
 				{
-					Console.WriteLine("Warning: Exception in serialization verification of type {0}", t);
+					Utility.WriteConsoleColor(ConsoleColor.Yellow, "Warning: Exception in serialization verification of type {0}", t);
 				}
 			}
 		}

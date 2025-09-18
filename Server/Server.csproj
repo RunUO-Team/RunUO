@@ -13,6 +13,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishAot>false</PublishAot>
     <Nullable>disable</Nullable>
+    <NoWarn>CS8632;CA1416</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <OutputPath>..\Distribution\Debug\</OutputPath>

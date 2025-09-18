@@ -94,11 +94,13 @@ namespace Server.Misc
 
 			public static void Initialize()
 			{
+#pragma warning disable CS0162 // Unreachable code detected
 				if (Settings.Enabled)
 				{
 					EventSink.Login += new LoginEventHandler(EventSink_Login);
 					ProtocolExtensions.Register(0xFF, true, new OnPacketReceive(OnHandshakeResponse));
 				}
+#pragma warning restore CS0162 // Unreachable code detected
 			}
 
 			private static void EventSink_Login(LoginEventArgs e)
@@ -150,10 +152,12 @@ namespace Server.Misc
 
 				m_Dictionary.Remove(m);
 
+#pragma warning disable CS0162 // Unreachable code detected
 				if (!Settings.KickOnFailure)
 				{
-					Console.WriteLine("Player '{0}' failed to negotiate features.", m);
+					Utility.WriteConsoleLine("Player '{0}' failed to negotiate features.", m);
 				}
+#pragma warning restore CS0162 // Unreachable code detected
 				else if (m.NetState != null && m.NetState.Running)
 				{
 					m.SendGump(new Gumps.WarningGump(1060635, 30720, Settings.WarningMessage, 0xFFC000, 420, 250, null, null));
